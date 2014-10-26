@@ -22,6 +22,9 @@ namespace FlightCompany
             Console.WriteLine();
             DenisJetLines.DisplayAirplanes();
             Console.WriteLine("________________________________________________________________");
+            Console.WriteLine("Total passenger placec in all planes : {0}", DenisJetLines.TotalPassangerPlaces());
+            Console.WriteLine("Total cargo capacity of all planes : {0}", DenisJetLines.TotalCargoCapacity());
+            Console.WriteLine("________________________________________________________________");
             Console.WriteLine();
             Console.WriteLine("Sorted ascending");
             Console.WriteLine("----------------");
@@ -40,6 +43,7 @@ namespace FlightCompany
             Console.WriteLine("Selected planes by fuel consumption 100-5000");
             Console.WriteLine("--------------------------------------------");
             DenisJetLines.DisplayAirplanes(DenisJetLines.SelectByFuelConsumption(100, 5000));
+            Console.WriteLine("________________________________________________________________");            
             Console.ReadLine();
         }
 

@@ -33,7 +33,7 @@ namespace FlightCompany
             info.AddValue("PassengerPlaces", _passengerplaces, typeof(int));
         }
 
-        public PrivateAirplane(SerializationInfo info, StreamingContext context) : base(info, context)
+        public PrivateAirplane(SerializationInfo info, StreamingContext context) : base (info,context)
         {
             _passengerplaces = (int)info.GetValue("PassengerPlaces", typeof(int));
         }

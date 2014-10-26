@@ -71,7 +71,7 @@ namespace FlightCompany
             List<PassengerAirplane> pasPlanToSer = new List<PassengerAirplane>();
             List<CargoAirplane> carPlanToSer = new List<CargoAirplane>();
             List<PrivateAirplane> privPlanToSer = new List<PrivateAirplane>();
-
+            
             foreach (PassengerAirplane p in PassengerPlanes)
             {
                 pasPlanToSer.Add(p);
@@ -115,20 +115,40 @@ namespace FlightCompany
             List<PrivateAirplane> PrivatePlanes = new List<PrivateAirplane>();
 
             IFormatter formatter = new BinaryFormatter();
-
-            using (FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.Open))
+            try
             {
-                PassengerPlanes = (List<PassengerAirplane>)formatter.Deserialize(fs);
+                using (FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.Open))
+                {
+                    PassengerPlanes = (List<PassengerAirplane>)formatter.Deserialize(fs);
+                }
+            }
+            catch(FileNotFoundException ex)
+            {
+
             }
 
-            using (FileStream fs = new FileStream("CargoPlanes.bin", FileMode.Open))
+            try
             {
-                CargoPlanes = (List<CargoAirplane>)formatter.Deserialize(fs);
+                using (FileStream fs = new FileStream("CargoPlanes.bin", FileMode.Open))
+                {
+                    CargoPlanes = (List<CargoAirplane>)formatter.Deserialize(fs);
+                }
+            }
+            catch(FileNotFoundException ex)
+            {
+
             }
 
-            using (FileStream fs = new FileStream("PrivatePlanes.bin", FileMode.Open))
+            try
             {
-                PrivatePlanes = (List<PrivateAirplane>)formatter.Deserialize(fs);
+                using (FileStream fs = new FileStream("PrivatePlanes.bin", FileMode.Open))
+                {
+                    PrivatePlanes = (List<PrivateAirplane>)formatter.Deserialize(fs);
+                }
+            }
+            catch(FileNotFoundException ex)
+            {
+
             }
 
             AirPlanes.Clear();
@@ -182,10 +202,34 @@ namespace FlightCompany
             }
         }
 
+        /// <summary> 
+        /// Выбор самолетов авиакомпании по заданному диапазону расхода топлива
+        /// </summary> 
+        /// <param name="fconsum1">Нижний предел диапазона</param>
+        /// <param name="fconsum2">Верхний предел диапазона</param>
         public IEnumerable<IPlane> SelectByFuelConsumption(double fconsum1 = 0, double fconsum2 = double.MaxValue)
         {
             return from p in AirPlanes where p.FuelConsumption >= fconsum1 && p.FuelConsumption <= fconsum2 select p;
         }
 
+        public int TotalPassangerPlaces()
+        {
+            int s = 0;
+            foreach(var p in AirPlanes)
+            {
+                if (p is IPassengerPlane) s += (p as IPassengerPlane).GetTotalPassengerPlaces();
+            }
+            return s;
+        }
+
+        public double TotalCargoCapacity()
+        {
+            double s = 0;
+            foreach(var p in AirPlanes)
+            {
+                if (p is IHasACargoBay) s += (p as IHasACargoBay).CargoCapacity;
+            }
+            return s;
+        }
     }
 }
