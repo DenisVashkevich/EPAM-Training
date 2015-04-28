@@ -1,0 +1,6 @@
+e:\visual studio 2013\Projects\Task1\Task1\bin\Debug\Task1.exe.config
+e:\visual studio 2013\Projects\Task1\Task1\bin\Debug\Task1.exe
+e:\visual studio 2013\Projects\Task1\Task1\bin\Debug\Task1.pdb
+e:\visual studio 2013\Projects\Task1\Task1\obj\Debug\Task1.csprojResolveAssemblyReference.cache
+e:\visual studio 2013\Projects\Task1\Task1\obj\Debug\Task1.exe
+e:\visual studio 2013\Projects\Task1\Task1\obj\Debug\Task1.pdb
