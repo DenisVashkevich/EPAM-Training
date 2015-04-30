@@ -7,13 +7,8 @@ namespace PartsWarehouse
 {
     public class Relay:Part,IHasACoil
     {
-        int NumNOcont { get; set; }
-        int NumNCcont { get; set; }
-        int TotalContacts { get; }
-
-        public double CoilVoltage
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public int NumNOcont { get; set; }
+        public int NumNCcont { get; set; }
+        public double CoilVoltage { get; set; }
     }
 }
