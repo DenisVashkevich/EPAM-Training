@@ -41,11 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerModule.cs" />
+    <Compile Include="ControllerModules.cs" />
+    <Compile Include="Cylinder.cs" />
+    <Compile Include="ElMagValve.cs" />
+    <Compile Include="IElectronic.cs" />
+    <Compile Include="IHasACoil.cs" />
+    <Compile Include="IPart.cs" />
+    <Compile Include="IPneumatic.cs" />
+    <Compile Include="OutOfStockException.cs" />
+    <Compile Include="Part.cs" />
+    <Compile Include="PartsCompareByStock.cs" />
+    <Compile Include="PartsCompareByStockModified.cs" />
+    <Compile Include="PneumValve.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relay.cs" />
+    <Compile Include="Sensor.cs" />
+    <Compile Include="WareHouse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

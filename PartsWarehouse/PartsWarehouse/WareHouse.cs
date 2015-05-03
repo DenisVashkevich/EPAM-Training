@@ -38,7 +38,7 @@ namespace PartsWarehouse
 
         public bool IsReadOnly
         {
-            get { return Parts.IsReadOnly; }
+            get { return Parts.IsReadOnly;}
         }
 
         public bool Remove(Part item)
@@ -60,10 +60,83 @@ namespace PartsWarehouse
 
         protected void Sort(IComparer<Part> Comparer)
         {
+            
             var sortedPartList = Parts.ToList();
             sortedPartList.Sort(Comparer);
             Parts = sortedPartList;
         }
 
+        public void SortByStock()
+        {
+            this.Sort(new PartsCompareByStock());
+        }
+
+        public void SortByDateStockModified()
+        {
+            this.Sort(new PartsCompareByStockModified());
+        }
+
+        private Part GetPartByPN(uint partnum)
+        {
+
+            foreach (var p in Parts)
+            {
+                if (p.PartNumber == partnum)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        uint pn;
+
+        private bool FindByPN(Part prt)
+        {
+
+            if (prt.PartNumber == pn)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool StockAdd(uint partnum, int num)
+        {
+            pn = partnum;
+            var newList = Parts.ToList();
+            int ind = newList.FindIndex(FindByPN);
+            if (ind >= 0)
+            {
+                newList[ind].StockAdd(num);
+                Parts = newList;
+                return true;
+            }
+            else return false;
+        }
+
+        public bool StockRemove(uint partnum, int num)
+        {
+            pn = partnum;
+            var newList = Parts.ToList();
+            int ind = newList.FindIndex(FindByPN);
+
+            if (ind >= 0)
+            {
+                try
+                {
+                    newList[ind].StockRemove(num);
+                    return true;
+                }
+                catch (OutOfStockException ex)
+                {
+                    return false;
+                }
+            }
+            else return false;
+        }
     }
 }

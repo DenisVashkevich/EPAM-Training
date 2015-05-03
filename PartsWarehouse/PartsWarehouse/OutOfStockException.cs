@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PartsWarehouse
 {
-    class Program
+    public class OutOfStockException:Exception
     {
-        static void Main(string[] args)
+        public OutOfStockException()
+            : base("Out of stock!")
         {
-            WareHouse whouse = new WareHouse();
+
         }
+
     }
 }

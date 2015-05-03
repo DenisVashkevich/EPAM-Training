@@ -1,1 +1,6 @@
 e:\visual studio 2013\Projects\PartsWarehouse\PartsWarehouse\bin\Debug\PartsWarehouse.exe.config
+e:\visual studio 2013\Projects\PartsWarehouse\PartsWarehouse\obj\Debug\PartsWarehouse.csprojResolveAssemblyReference.cache
+e:\visual studio 2013\Projects\PartsWarehouse\PartsWarehouse\bin\Debug\PartsWarehouse.exe
+e:\visual studio 2013\Projects\PartsWarehouse\PartsWarehouse\bin\Debug\PartsWarehouse.pdb
+e:\visual studio 2013\Projects\PartsWarehouse\PartsWarehouse\obj\Debug\PartsWarehouse.exe
+e:\visual studio 2013\Projects\PartsWarehouse\PartsWarehouse\obj\Debug\PartsWarehouse.pdb

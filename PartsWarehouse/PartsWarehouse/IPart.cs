@@ -7,7 +7,7 @@ namespace PartsWarehouse
 {
     public interface IPart
     {
-        string PartNumber { get; }
+        uint PartNumber { get; }
         string Name { get; }
         string Description { get; }
         int Stock { get; }
