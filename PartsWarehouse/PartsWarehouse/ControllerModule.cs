@@ -9,6 +9,8 @@ namespace PartsWarehouse
     {
         public ControllerModules ModuleType { get; set; }
         public double PowerVoltage { get; set; }
+        public int NumDigitalIns { get; set; }
+        public int NumAnalogIns { get; set; }
         public int NumDigitalOuts { get; set; }
         public int NumAnalogOuts { get; set; }
         public int TotalOutputs { get { return NumAnalogOuts + NumDigitalOuts; } }

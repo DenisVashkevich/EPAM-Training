@@ -134,7 +134,8 @@ namespace PartsWarehouse
                 }
                 catch (OutOfStockException ex)
                 {
-                    return false;
+                    
+                    throw ex;
                 }
             }
             else return false;

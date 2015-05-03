@@ -3,7 +3,7 @@
   <Class Name="PartsWarehouse.Part">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>hAAAAAAAAAAgAAAAQAAAAAQAgAAAAAAAQAAAAAEAAAA=</HashCode>
+      <HashCode>hQAAAAAAAAAgAAAAQAAAAAQAgAAAAAAAQAAAAAEAAAA=</HashCode>
       <FileName>Part.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -43,7 +43,7 @@
   <Class Name="PartsWarehouse.ControllerModule">
     <Position X="8" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAAAAAAAAAAAAAEAABgAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CAAAAAAEAAAAAAAAAAAEAABgAAIAIAAAAAAAAAAAAAA=</HashCode>
       <FileName>ControllerModule.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -116,7 +116,7 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="PartsWarehouse.ControllerModules">
-    <Position X="7.75" Y="6.5" Width="1.5" />
+    <Position X="8" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>ControllerModules.cs</FileName>
