@@ -35,6 +35,7 @@ namespace PartsWarehouse
                 PartNumber = 16422,
                 Name = "SPC200 controller CPU module",
                 Description = "4 bracket CPU module rev 2.0,  firmware: 1.09b31 ",
+                ModuleType = ControllerModules.CPUmodule,
                 PowerVoltage = 24,
                 NumDigitalOuts = 16,
                 NumAnalogOuts = 8,
