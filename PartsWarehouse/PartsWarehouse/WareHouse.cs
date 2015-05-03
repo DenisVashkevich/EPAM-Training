@@ -129,6 +129,7 @@ namespace PartsWarehouse
                 try
                 {
                     newList[ind].StockRemove(num);
+                    Parts = newList;
                     return true;
                 }
                 catch (OutOfStockException ex)
