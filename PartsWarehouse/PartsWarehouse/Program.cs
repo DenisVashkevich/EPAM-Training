@@ -42,18 +42,37 @@ namespace PartsWarehouse
                 NumDigitalIns = 6
             });
 
+            
             warehouse.StockAdd(14521, 8);
             warehouse.StockAdd(15216, 12);
 
-            Console.WriteLine(warehouse.Count);
+            foreach (var p in warehouse)
+            {
+                Console.WriteLine("Part number of {0} is {1}. In stock: {2}", p.Name, p.PartNumber, p.Stock);
+            }
+
             Console.ReadLine();
 
-            //foreach (var p in warehouse)
-            //{
-            //    Console.WriteLine("Part number of {0} is {1}. In stock: {3}",p.Name, p.PartNumber.ToString(), p.Stock.ToString());
-            //}
+            try
+            {
+                warehouse.StockRemove(15216, 2);
+            }
+            catch (OutOfStockException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
+            warehouse.SortByStock();
 
+            Console.WriteLine();
+            Console.WriteLine();
+
+            foreach (var p in warehouse)
+            {
+                Console.WriteLine("Part number of {0} is {1}. In stock: {2}", p.Name, p.PartNumber, p.Stock);
+            }
+
+            Console.ReadLine();
         }
     }
 }
