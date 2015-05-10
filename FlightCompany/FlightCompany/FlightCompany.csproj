@@ -41,11 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirPlane.cs" />
+    <Compile Include="CargoAirplane.cs" />
     <Compile Include="IHasACargoBay.cs" />
-    <Compile Include="IPassangerPlane.cs" />
+    <Compile Include="IPassengerPlane.cs" />
     <Compile Include="IPlane.cs" />
     <Compile Include="IPrivatePlane.cs" />
-    <Compile Include="PassangerAirPlane.cs" />
+    <Compile Include="PassengerAirplane.cs" />
+    <Compile Include="PrivateAirplane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
