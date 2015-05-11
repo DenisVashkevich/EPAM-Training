@@ -5,11 +5,9 @@ using System.Text;
 
 namespace FlightCompany
 {
+    [Serializable]
     public class CargoAirplane : AirPlane, IHasACargoBay
     {
-        public double CargoCapacity
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public double CargoCapacity { get; set; }
     }
 }

@@ -5,16 +5,17 @@ using System.Text;
 
 namespace FlightCompany
 {
+    [Serializable]
     public class PassengerAirplane : AirPlane, IPassengerPlane, IHasACargoBay
     {
-        public double CargoCapacity
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public int EconomyClassPassangerPlaces { get; set; }
+        public int BusinessClassPassangerPlaces { get; set; }
+        public int FirstClassPassangerPlaces { get; set; }
+        public double CargoCapacity { get; set; }
 
-        public int GetTotalPassengerPlacec()
+        public int GetTotalPassengerPlaces()
         {
-            throw new NotImplementedException();
+            return EconomyClassPassangerPlaces + BusinessClassPassangerPlaces + FirstClassPassangerPlaces;
         }
     }
 }

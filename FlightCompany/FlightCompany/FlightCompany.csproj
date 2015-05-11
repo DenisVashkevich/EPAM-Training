@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirCompany.cs" />
     <Compile Include="AirPlane.cs" />
     <Compile Include="CargoAirplane.cs" />
     <Compile Include="IHasACargoBay.cs" />

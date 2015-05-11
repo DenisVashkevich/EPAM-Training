@@ -5,11 +5,14 @@ using System.Text;
 
 namespace FlightCompany
 {
+    [Serializable]
     public class PrivateAirplane : AirPlane, IPassengerPlane
     {
-        public int GetTotalPassengerPlacec()
+        public int PassengerPlaces { get; set; }
+
+        public int GetTotalPassengerPlaces()
         {
-            throw new NotImplementedException();
+            return PassengerPlaces;
         }
     }
 }

@@ -7,11 +7,7 @@ namespace FlightCompany
 {
     public interface IPassengerPlane
     {
-        //public int EconomyClassPassangerPlaces { get; }
-        //public int BusinessClassPassangerPlaces { get; }
-        //public int FirstClassPassangerPlaces { get; }
-
-        public int GetTotalPassengerPlacec();
+        public int GetTotalPassengerPlaces();
 
     }
 }

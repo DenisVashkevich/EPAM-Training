@@ -10,6 +10,12 @@ namespace FlightCompany
     {
         static void Main(string[] args)
         {
+            AirCompany DenisJetLines = new AirCompany();
+
+            DenisJetLines.Add(new PassengerAirplane()
+            {
+                Model = ""
+            });
         }
     }
 }

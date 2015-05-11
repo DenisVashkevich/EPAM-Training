@@ -11,7 +11,7 @@
   <Class Name="FlightCompany.PassengerAirplane">
     <Position X="2.5" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <HashCode>AAAAAAAAAABAAEAAAAAAAAAAAAAACAAAAAAAAAAAEAE=</HashCode>
       <FileName>PassengerAirplane.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -27,8 +27,16 @@
   <Class Name="FlightCompany.PrivateAirplane">
     <Position X="7.5" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
       <FileName>PrivateAirplane.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FlightCompany.AirCompany">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAAAAAAAAABAQAAAABAQAAAAAAAAAAAAAAABwIAA=</HashCode>
+      <FileName>AirCompany.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -49,7 +57,7 @@
   <Interface Name="FlightCompany.IPassengerPlane">
     <Position X="3.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
       <FileName>IPassengerPlane.cs</FileName>
     </TypeIdentifier>
   </Interface>

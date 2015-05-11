@@ -1,2 +1,3 @@
 D:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.exe.config
 E:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.exe.config
+E:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.csprojResolveAssemblyReference.cache
