@@ -7,11 +7,11 @@ namespace FlightCompany
 {
     public interface IPlane
     {
-        public string Manufacturrer { get; }
-        public string Model { get; }
-        public int FlightRange { get; }
-        public int CruisingSpeed { get; }
-        public int FuelConsumption { get; }
-        public int CrewCount { get; }
+        string Manufacturrer { get; }
+        string Model { get; }
+        int FlightRange { get; }
+        int CruisingSpeed { get; }
+        double FuelConsumption { get; }
+        int CrewCount { get; }
     }
 }

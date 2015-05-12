@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FlightCompany
 {
+    
     public class AirCompany : ICollection<IPlane>
     {
         ICollection<IPlane> AirPlanes = new List<IPlane>();
@@ -60,26 +62,24 @@ namespace FlightCompany
 
         public void SaveToFile()
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(AirPlane));
+            IFormatter formatter = new BinaryFormatter();
 
-            using (FileStream fs = new FileStream("C:\\Temp\\Aircompany.xml", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, AirPlanes);
-            }
+            FileStream fs = new FileStream("Aircompany.bin", FileMode.OpenOrCreate);
+            formatter.Serialize(fs, AirPlanes);
+            fs.Close();
         }
 
         public void LoadFromfile() 
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(AirPlane));
-
-            using(FileStream fs = new FileStream("C:\\Temp\\Aircompany.xml", FileMode.OpenOrCreate))
-            {
-                AirPlanes = (ICollection<IPlane>)formatter.Deserialize(fs);
-            }
+            IFormatter formatter = new BinaryFormatter();
+            FileStream fs = new FileStream("Aircompany.bin", FileMode.Open);
+            AirPlanes = (ICollection<IPlane>)formatter.Deserialize(fs);
+            fs.Close();
         }
 
         public void DisplayAllPlanes()
         {
+            
         }
     }
 }

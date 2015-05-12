@@ -7,6 +7,6 @@ namespace FlightCompany
 {
     public interface IHasACargoBay
     {
-        public double CargoCapacity { get; }
+        double CargoCapacity { get; }
     }
 }

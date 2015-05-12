@@ -7,7 +7,7 @@ namespace FlightCompany
 {
     public interface IPassengerPlane
     {
-        public int GetTotalPassengerPlaces();
+        int GetTotalPassengerPlaces();
 
     }
 }
