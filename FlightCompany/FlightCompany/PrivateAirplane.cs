@@ -9,7 +9,13 @@ namespace FlightCompany
     [Serializable]
     public class PrivateAirplane : AirPlane, IPassengerPlane, ISerializable
     {
-        public int PassengerPlaces { get; set; }
+        private int _passengerplaces;
+
+        public int PassengerPlaces 
+        {
+            get { return this._passengerplaces; }
+            set { this._passengerplaces = value; }
+        }
 
         public PrivateAirplane()
         {
@@ -23,12 +29,12 @@ namespace FlightCompany
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("PassengerPlaces", PassengerPlaces, typeof(int));
+            info.AddValue("PassengerPlaces", _passengerplaces, typeof(int));
         }
 
         public PrivateAirplane(SerializationInfo info, StreamingContext context)
         {
-            PassengerPlaces = (int)info.GetValue("PassengerPlaces", typeof(int));
+            _passengerplaces = (int)info.GetValue("PassengerPlaces", typeof(int));
         }
 
     }

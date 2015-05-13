@@ -9,7 +9,13 @@ namespace FlightCompany
     [Serializable]
     public class CargoAirplane : AirPlane, IHasACargoBay, ISerializable
     {
-        public double CargoCapacity { get; set; }
+        private double _cargocapacity;
+
+        public double CargoCapacity 
+        {
+            get { return this._cargocapacity; }
+            set { this._cargocapacity = value; }
+        }
 
         public CargoAirplane()
         {
@@ -18,13 +24,13 @@ namespace FlightCompany
     
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("CargoCapacity", CargoCapacity, typeof(double));
+            info.AddValue("CargoCapacity", _cargocapacity, typeof(double));
         }
 
         public CargoAirplane(SerializationInfo info, StreamingContext context)
         {
-            CargoCapacity = (double)info.GetValue("CargoCapacity", typeof(double));
+            _cargocapacity = (double)info.GetValue("CargoCapacity", typeof(double));
         }
     
-}
+    }
 }

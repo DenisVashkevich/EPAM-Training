@@ -5,3 +5,8 @@ E:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompa
 E:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.pdb
 E:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.exe
 E:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.pdb
+D:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.exe
+D:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.pdb
+D:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.exe
+D:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.pdb
+D:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.csprojResolveAssemblyReference.cache

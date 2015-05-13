@@ -9,10 +9,34 @@ namespace FlightCompany
     [Serializable]
     public class PassengerAirplane : AirPlane, IPassengerPlane, IHasACargoBay, ISerializable
     {
-        public int EconomyClassPassangerPlaces { get; set; }
-        public int BusinessClassPassangerPlaces { get; set; }
-        public int FirstClassPassangerPlaces { get; set; }
-        public double CargoCapacity { get; set; }
+        private int _economyclasspassangerplaces;
+        private int _businessclasspassangerplaces;
+        private int _firstclasspassangerplaces;
+        private double _cargocapacity;
+
+        public int EconomyClassPassangerPlaces 
+        {
+            get { return this._economyclasspassangerplaces; }
+            set { this._economyclasspassangerplaces = value; }
+        }
+
+        public int BusinessClassPassangerPlaces 
+        {
+            get { return this._businessclasspassangerplaces; }
+            set { this._businessclasspassangerplaces = value; } 
+        }
+
+        public int FirstClassPassangerPlaces 
+        {
+            get { return this._firstclasspassangerplaces; }
+            set { this._firstclasspassangerplaces = value; }
+        }
+
+        public double CargoCapacity 
+        {
+            get { return this._cargocapacity; }
+            set { this._cargocapacity = value; }
+        }
 
         public PassengerAirplane()
         {
@@ -21,23 +45,23 @@ namespace FlightCompany
 
         public int GetTotalPassengerPlaces()
         {
-            return EconomyClassPassangerPlaces + BusinessClassPassangerPlaces + FirstClassPassangerPlaces;
+            return _economyclasspassangerplaces + _businessclasspassangerplaces + _firstclasspassangerplaces;
         }
 
-        void GetObjectData(SerializationInfo info, StreamingContext context)
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("EconomyClassPassangerPlaces", EconomyClassPassangerPlaces, typeof(int));
-            info.AddValue("BusinessClassPassangerPlaces", BusinessClassPassangerPlaces, typeof(int));
-            info.AddValue("FirstClassPassangerPlaces", FirstClassPassangerPlaces, typeof(int));
-            info.AddValue("CargoCapacity", CargoCapacity, typeof(double));
+            info.AddValue("EconomyClassPassangerPlaces", _economyclasspassangerplaces, typeof(int));
+            info.AddValue("BusinessClassPassangerPlaces", _businessclasspassangerplaces, typeof(int));
+            info.AddValue("FirstClassPassangerPlaces", _firstclasspassangerplaces, typeof(int));
+            info.AddValue("CargoCapacity", _cargocapacity, typeof(double));
         }
 
         public PassengerAirplane(SerializationInfo info, StreamingContext context)
         {
-            EconomyClassPassangerPlaces = (int)info.GetValue("EconomyClassPassangerPlaces", typeof(int));
-            BusinessClassPassangerPlaces = (int)info.GetValue("BusinessClassPassangerPlaces", typeof(int));
-            FirstClassPassangerPlaces = (int)info.GetValue("FirstClassPassangerPlaces", typeof(int));
-            CargoCapacity = (double)info.GetValue("CargoCapacity", typeof(double));
+            _economyclasspassangerplaces = (int)info.GetValue("EconomyClassPassangerPlaces", typeof(int));
+            _businessclasspassangerplaces = (int)info.GetValue("BusinessClassPassangerPlaces", typeof(int));
+            _firstclasspassangerplaces = (int)info.GetValue("FirstClassPassangerPlaces", typeof(int));
+            _cargocapacity = (double)info.GetValue("CargoCapacity", typeof(double));
         }
 
     }
