@@ -45,23 +45,24 @@ namespace FlightCompany
 
         public int GetTotalPassengerPlaces()
         {
-            return _economyclasspassangerplaces + _businessclasspassangerplaces + _firstclasspassangerplaces;
+            return this._economyclasspassangerplaces + this._businessclasspassangerplaces + this._firstclasspassangerplaces;
         }
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("EconomyClassPassangerPlaces", _economyclasspassangerplaces, typeof(int));
-            info.AddValue("BusinessClassPassangerPlaces", _businessclasspassangerplaces, typeof(int));
-            info.AddValue("FirstClassPassangerPlaces", _firstclasspassangerplaces, typeof(int));
-            info.AddValue("CargoCapacity", _cargocapacity, typeof(double));
+            base.GetObjectData(info, context);
+            info.AddValue("EconomyClassPassangerPlaces", this._economyclasspassangerplaces, typeof(int));
+            info.AddValue("BusinessClassPassangerPlaces", this._businessclasspassangerplaces, typeof(int));
+            info.AddValue("FirstClassPassangerPlaces", this._firstclasspassangerplaces, typeof(int));
+            info.AddValue("CargoCapacity", this._cargocapacity, typeof(double));
         }
 
-        public PassengerAirplane(SerializationInfo info, StreamingContext context)
+        public PassengerAirplane(SerializationInfo info, StreamingContext context): base(info, context)
         {
-            _economyclasspassangerplaces = (int)info.GetValue("EconomyClassPassangerPlaces", typeof(int));
-            _businessclasspassangerplaces = (int)info.GetValue("BusinessClassPassangerPlaces", typeof(int));
-            _firstclasspassangerplaces = (int)info.GetValue("FirstClassPassangerPlaces", typeof(int));
-            _cargocapacity = (double)info.GetValue("CargoCapacity", typeof(double));
+            this._economyclasspassangerplaces = (int)info.GetValue("EconomyClassPassangerPlaces", typeof(int));
+            this._businessclasspassangerplaces = (int)info.GetValue("BusinessClassPassangerPlaces", typeof(int));
+            this._firstclasspassangerplaces = (int)info.GetValue("FirstClassPassangerPlaces", typeof(int));
+            this._cargocapacity = (double)info.GetValue("CargoCapacity", typeof(double));
         }
 
     }

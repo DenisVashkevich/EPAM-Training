@@ -8,22 +8,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FlightCompany
 {
-
-    //[Serializable]
-    //public class SerClass
-    //{
-    //    public List<IPlane> SerAirPlanes = new List<IPlane>();
-
-    //    public SerClass()
-    //    {
-
-    //    }
-
-    //}
-
     public class AirCompany : ICollection<IPlane>
     {
-        List<IPlane> AirPlanes = new List<IPlane>();
+        private List<IPlane> AirPlanes = new List<IPlane>();
 
         #region ICollection<IPlane>
         public void Add(IPlane item)
@@ -79,18 +66,37 @@ namespace FlightCompany
             var CargoPlanes = from p in AirPlanes where p is CargoAirplane select p;
             var PrivatePlanes = from p in AirPlanes where p is PrivateAirplane select p;
 
+            List<PassengerAirplane> pasPlanToSer = new List<PassengerAirplane>();
+            List<CargoAirplane> carPlanToSer = new List<CargoAirplane>();
+            List<PrivateAirplane> privPlanToSer = new List<PrivateAirplane>();
+
+            foreach (PassengerAirplane p in PassengerPlanes)
+            {
+                pasPlanToSer.Add(p);
+            }
+
+            foreach (CargoAirplane p in CargoPlanes)
+            {
+                carPlanToSer.Add(p);
+            }
+
+            foreach (PrivateAirplane p in PrivatePlanes)
+            {
+                privPlanToSer.Add(p);
+            }
+
             IFormatter formatter = new BinaryFormatter();
 
             FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.OpenOrCreate);
-            formatter.Serialize(fs, PassengerPlanes.ToList());
+            formatter.Serialize(fs, pasPlanToSer);
             fs.Close();
 
             fs = new FileStream("CargoPlanes.bin", FileMode.OpenOrCreate);
-            formatter.Serialize(fs, CargoPlanes.ToList());
+            formatter.Serialize(fs, carPlanToSer);
             fs.Close();
 
             fs = new FileStream("PrivatePlanes.bin", FileMode.OpenOrCreate);
-            formatter.Serialize(fs, PrivatePlanes.ToList());
+            formatter.Serialize(fs, privPlanToSer);
             fs.Close();
 
         }
@@ -100,28 +106,28 @@ namespace FlightCompany
             IFormatter formatter = new BinaryFormatter();
 
             FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.Open);
-            List<IPlane> PassengerPlanes = (List<IPlane>)formatter.Deserialize(fs);
+            List<PassengerAirplane> PassengerPlanes = (List<PassengerAirplane>)formatter.Deserialize(fs);
             fs.Close();
 
             fs = new FileStream("CargoPlanes.bin", FileMode.Open);
-            var CargoPlanes = formatter.Deserialize(fs);
+            List<CargoAirplane> CargoPlanes = (List<CargoAirplane>)formatter.Deserialize(fs);
             fs.Close();
 
             fs = new FileStream("PrivatePlanes.bin", FileMode.Open);
-            var PrivatePlanes = formatter.Deserialize(fs);
+            List<PrivateAirplane> PrivatePlanes = (List<PrivateAirplane>)formatter.Deserialize(fs);
             fs.Close();
 
-            Console.Clear();
-            foreach (var p in PassengerPlanes)
-            {
-                Console.WriteLine("{0} {1}  Flight Range: {2}  Fuel Consumption: {3}", p.Manufacturrer, p.Model, p.FlightRange, p.FuelConsumption);
-            }
-            Console.ReadLine();
+            //Console.Clear();
+            //foreach (var p in PassengerPlanes)
+            //{
+            //    Console.WriteLine("{0} {1}  Flight Range: {2}  Fuel Consumption: {3}", p.Manufacturrer, p.Model, p.FlightRange, p.FuelConsumption);
+            //}
+            //Console.ReadLine();
 
-            //AirPlanes.Clear();
-            //AirPlanes.AddRange((IEnumerable<PassengerAirplane>)PassengerPlanes);
-            //AirPlanes.AddRange((IEnumerable<PassengerAirplane>)CargoPlanes);
-            //AirPlanes.AddRange((IEnumerable<PassengerAirplane>)PrivatePlanes);
+            AirPlanes.Clear();
+            AirPlanes.AddRange(PassengerPlanes);
+            AirPlanes.AddRange(CargoPlanes);
+            AirPlanes.AddRange(PrivatePlanes);
         }
 
         public void DisplayAllPlanes()

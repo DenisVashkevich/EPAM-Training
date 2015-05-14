@@ -29,10 +29,11 @@ namespace FlightCompany
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            base.GetObjectData(info, context);
             info.AddValue("PassengerPlaces", _passengerplaces, typeof(int));
         }
 
-        public PrivateAirplane(SerializationInfo info, StreamingContext context)
+        public PrivateAirplane(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             _passengerplaces = (int)info.GetValue("PassengerPlaces", typeof(int));
         }

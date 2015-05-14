@@ -24,12 +24,13 @@ namespace FlightCompany
     
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("CargoCapacity", _cargocapacity, typeof(double));
+            base.GetObjectData(info, context);
+            info.AddValue("CargoCapacity", this._cargocapacity, typeof(double));
         }
 
-        public CargoAirplane(SerializationInfo info, StreamingContext context)
+        public CargoAirplane(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            _cargocapacity = (double)info.GetValue("CargoCapacity", typeof(double));
+            this._cargocapacity = (double)info.GetValue("CargoCapacity", typeof(double));
         }
     
     }
