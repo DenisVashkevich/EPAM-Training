@@ -59,7 +59,9 @@ namespace FlightCompany
         }
         #endregion
 
-
+        /// <summary> 
+        /// Сохранение списка самолетов на диск
+        /// </summary> 
         public void SaveToFile()
         {
             var PassengerPlanes = from p in AirPlanes where p is PassengerAirplane select p;
@@ -87,42 +89,47 @@ namespace FlightCompany
 
             IFormatter formatter = new BinaryFormatter();
 
-            FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.OpenOrCreate);
-            formatter.Serialize(fs, pasPlanToSer);
-            fs.Close();
+            using (FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, pasPlanToSer);
+            }
 
-            fs = new FileStream("CargoPlanes.bin", FileMode.OpenOrCreate);
-            formatter.Serialize(fs, carPlanToSer);
-            fs.Close();
+            using (FileStream fs = new FileStream("CargoPlanes.bin", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, carPlanToSer);
+            }
 
-            fs = new FileStream("PrivatePlanes.bin", FileMode.OpenOrCreate);
-            formatter.Serialize(fs, privPlanToSer);
-            fs.Close();
-
+            using (FileStream fs = new FileStream("PrivatePlanes.bin", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, privPlanToSer);
+            }
         }
 
+        /// <summary> 
+        /// Загрузка списка самолетов с диска
+        /// </summary> 
         public void LoadFromfile() 
         {
+            List<PassengerAirplane> PassengerPlanes = new List<PassengerAirplane>();
+            List<CargoAirplane> CargoPlanes = new List<CargoAirplane>();
+            List<PrivateAirplane> PrivatePlanes = new List<PrivateAirplane>();
+
             IFormatter formatter = new BinaryFormatter();
 
-            FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.Open);
-            List<PassengerAirplane> PassengerPlanes = (List<PassengerAirplane>)formatter.Deserialize(fs);
-            fs.Close();
+            using (FileStream fs = new FileStream("PassengerPlanes.bin", FileMode.Open))
+            {
+                PassengerPlanes = (List<PassengerAirplane>)formatter.Deserialize(fs);
+            }
 
-            fs = new FileStream("CargoPlanes.bin", FileMode.Open);
-            List<CargoAirplane> CargoPlanes = (List<CargoAirplane>)formatter.Deserialize(fs);
-            fs.Close();
+            using (FileStream fs = new FileStream("CargoPlanes.bin", FileMode.Open))
+            {
+                CargoPlanes = (List<CargoAirplane>)formatter.Deserialize(fs);
+            }
 
-            fs = new FileStream("PrivatePlanes.bin", FileMode.Open);
-            List<PrivateAirplane> PrivatePlanes = (List<PrivateAirplane>)formatter.Deserialize(fs);
-            fs.Close();
-
-            //Console.Clear();
-            //foreach (var p in PassengerPlanes)
-            //{
-            //    Console.WriteLine("{0} {1}  Flight Range: {2}  Fuel Consumption: {3}", p.Manufacturrer, p.Model, p.FlightRange, p.FuelConsumption);
-            //}
-            //Console.ReadLine();
+            using (FileStream fs = new FileStream("PrivatePlanes.bin", FileMode.Open))
+            {
+                PrivatePlanes = (List<PrivateAirplane>)formatter.Deserialize(fs);
+            }
 
             AirPlanes.Clear();
             AirPlanes.AddRange(PassengerPlanes);
@@ -130,17 +137,38 @@ namespace FlightCompany
             AirPlanes.AddRange(PrivatePlanes);
         }
 
-        public void DisplayAllPlanes()
+        public void AddRange(IEnumerable<IPlane> collection)
         {
-            foreach(var p in AirPlanes)
+            AirPlanes.AddRange(collection);
+        }
+
+        /// <summary> 
+        /// Выводит на экран все самолеты авиакомпании
+        /// </summary> 
+        public void DisplayAirplanes()
+        {
+            DisplayAirplanes(AirPlanes);
+        }
+
+        /// <summary> 
+        /// Выводит на экран список самолетов
+        /// </summary> 
+        /// <param name = "AirplanesCollection">Список самолетов для вывода</param> 
+        public void DisplayAirplanes(IEnumerable<IPlane> AirplanesCollection)
+        {
+            foreach (var p in AirplanesCollection)
             {
                 Console.WriteLine("{0} {1}  Flight Range: {2}  Fuel Consumption: {3}", p.Manufacturrer, p.Model, p.FlightRange, p.FuelConsumption);
-                if (p is IPassengerPlane) Console.WriteLine("   Passenger places: {0}",(p as IPassengerPlane).GetTotalPassengerPlaces());
+                if (p is IPassengerPlane) Console.WriteLine("   Passenger places: {0}", (p as IPassengerPlane).GetTotalPassengerPlaces());
                 if (p is IHasACargoBay) Console.WriteLine("   Cargo capacity: {0}", (p as IHasACargoBay).CargoCapacity);
                 Console.WriteLine();
             }
         }
 
+        /// <summary> 
+        /// Сортировка самолетов авиакомпании по дальности полета
+        /// </summary> 
+        /// <param name = "desc">Направление сортировки (desc = true, в порядке убывания)</param> 
         public void SortByFlightRange(bool desc = false)
         {
             if(desc)
@@ -154,18 +182,10 @@ namespace FlightCompany
             }
         }
 
-        public void SelectByFuelConsumption(double fconsum1 = 0, double fconsum2 = double.MaxValue)
+        public IEnumerable<IPlane> SelectByFuelConsumption(double fconsum1 = 0, double fconsum2 = double.MaxValue)
         {
-            var selectedPlanes = from p in AirPlanes where p.FuelConsumption >= fconsum1 && p.FuelConsumption <= fconsum2 select p;
-
-            foreach (var p in selectedPlanes)
-            {
-                Console.WriteLine("{0} {1}  Flight Range: {2}  Fuel Consumption: {3}", p.Manufacturrer, p.Model, p.FlightRange, p.FuelConsumption);
-                if (p is IPassengerPlane) Console.WriteLine("   Passenger places: {0}", (p as IPassengerPlane).GetTotalPassengerPlaces());
-                if (p is IHasACargoBay) Console.WriteLine("   Cargo capacity: {0}", (p as IHasACargoBay).CargoCapacity);
-                Console.WriteLine();
-            }
-
+            return from p in AirPlanes where p.FuelConsumption >= fconsum1 && p.FuelConsumption <= fconsum2 select p;
         }
+
     }
 }
