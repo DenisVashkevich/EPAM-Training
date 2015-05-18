@@ -26,6 +26,8 @@ namespace FlightCompany
             Console.WriteLine("Total cargo capacity of all planes : {0}", DenisJetLines.TotalCargoCapacity());
             Console.WriteLine("________________________________________________________________");
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Sorted ascending");
             Console.WriteLine("----------------");
             Console.WriteLine();
@@ -43,7 +45,8 @@ namespace FlightCompany
             Console.WriteLine("Selected planes by fuel consumption 100-5000");
             Console.WriteLine("--------------------------------------------");
             DenisJetLines.DisplayAirplanes(DenisJetLines.SelectByFuelConsumption(100, 5000));
-            Console.WriteLine("________________________________________________________________");            
+            Console.WriteLine("________________________________________________________________");
+
             Console.ReadLine();
         }
 
@@ -79,6 +82,34 @@ namespace FlightCompany
                 CargoCapacity = 0
             });
 
+            manualList.Add(new PassengerAirplane()
+            {
+                Model = "TU-204",
+                Manufacturrer = "KAPO",
+                FlightRange = 6500,
+                CruisingSpeed = 830,
+                FuelConsumption = 3200,
+                CrewCount = 3,
+                EconomyClassPassangerPlaces = 210,
+                BusinessClassPassangerPlaces = 0,
+                FirstClassPassangerPlaces = 0,
+                CargoCapacity = 21000
+            });
+
+            manualList.Add(new PassengerAirplane()
+            {
+                Model = "IL-96",
+                Manufacturrer = "VASO",
+                FlightRange = 7500,
+                CruisingSpeed = 900,
+                FuelConsumption = 6700,
+                CrewCount = 3,
+                EconomyClassPassangerPlaces = 279,
+                BusinessClassPassangerPlaces = 28,
+                FirstClassPassangerPlaces = 11,
+                CargoCapacity = 40000
+            });
+
             manualList.Add(new CargoAirplane()
             {
                 Model = "747-8f",
@@ -101,6 +132,27 @@ namespace FlightCompany
                 PassengerPlaces = 18
             });
 
+            manualList.Add(new PrivateAirplane()
+            {
+                Model = "GChallenger 300",
+                Manufacturrer = "Bombardier ",
+                FlightRange = 5646,
+                CruisingSpeed = 850,
+                FuelConsumption = 920,
+                CrewCount = 2,
+                PassengerPlaces = 8
+            });
+
+            manualList.Add(new PrivateAirplane()
+            {
+                Model = "Falcon 7X",
+                Manufacturrer = "Dassault",
+                FlightRange = 11020,
+                CruisingSpeed = 904,
+                FuelConsumption = 1100,
+                CrewCount = 2,
+                PassengerPlaces = 19
+            });
             return manualList;
         }
     }

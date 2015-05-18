@@ -10,3 +10,9 @@ D:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompa
 D:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.exe
 D:\visual studio 2013\Projects\FlightCompany\FlightCompany\bin\Debug\FlightCompany.pdb
 D:\visual studio 2013\Projects\FlightCompany\FlightCompany\obj\Debug\FlightCompany.csprojResolveAssemblyReference.cache
+D:\GitHub\EPAM-Training\FlightCompany\FlightCompany\bin\Debug\FlightCompany.exe.config
+D:\GitHub\EPAM-Training\FlightCompany\FlightCompany\obj\Debug\FlightCompany.exe
+D:\GitHub\EPAM-Training\FlightCompany\FlightCompany\obj\Debug\FlightCompany.pdb
+D:\GitHub\EPAM-Training\FlightCompany\FlightCompany\bin\Debug\FlightCompany.exe
+D:\GitHub\EPAM-Training\FlightCompany\FlightCompany\bin\Debug\FlightCompany.pdb
+D:\GitHub\EPAM-Training\FlightCompany\FlightCompany\obj\Debug\FlightCompany.csprojResolveAssemblyReference.cache
