@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Concordance
 {
@@ -27,13 +28,35 @@ namespace Concordance
         {
 
         }
-
-        public void DisplayWords()
+        
+        public void SaveReportToFile(string filePath)
         {
+            string firstLetter = " ";
+
             var wrds = from ww in words orderby ww.Key ascending select ww;
-            foreach (KeyValuePair<string, int> w in wrds)
+
+            try
             {
-                Console.WriteLine(w.Key + "   " + w.Value.ToString());
+                using (StreamWriter sw = new StreamWriter(filePath))
+                {
+                    foreach (KeyValuePair<string, int> w in wrds)
+                    {
+                        if (!w.Key.StartsWith(firstLetter))
+                        {
+                            firstLetter = w.Key.Substring(0, 1);
+                            sw.WriteLine("");
+                            sw.WriteLine("{0}", firstLetter.ToUpper());
+                        }
+
+                        sw.WriteLine("{0}  {1}", w.Key, w.Value);
+                    }
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+            }
+            catch (Exception ex) 
+            { 
             }
         }
     }

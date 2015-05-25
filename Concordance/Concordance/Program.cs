@@ -21,21 +21,20 @@ namespace Concordance
                     while (!sr.EndOfStream)
                     {
                         string s = sr.ReadLine();
-                        string[] sar = s.Split(new char[] {' ', ',', '.', ':', '\t' });
+                        string[] sar = s.Split(new char[] { ' ', ',', '.', ':', '!', ';', '\t' });
                         foreach (string ss in sar)
                         {
                             if (ss.Trim() != "")
                                 wwords.Add(ss.ToLower());
                         }
                     }
-                    
                 }
             }
             catch(FileNotFoundException ex) 
             { 
             }
 
-            wwords.DisplayWords();
+            wwords.SaveReportToFile(@"D:\\testreport.txt");
             Console.ReadLine();
         }
     }
