@@ -8,19 +8,40 @@ namespace Concordance
 {
     public class Concordance
     {
-        private Dictionary<string, int> words = new Dictionary<string, int>();
-
-        public void Add(string wrd)
+        private class ValueClass
         {
-            int val;
+            public int count;
+            private int[] pages = new int[100];
+
+            public int[] Pages { get { return pages; } }
+
+            public ValueClass(int page)
+            {
+                this.count = 1;
+                this.AddPage(page);
+            }
+
+            public void AddPage(int page)
+            {
+                if ((page != 0) && !pages.Contains(page)) 
+                    this.pages[1] = page;
+            }
+        }
+
+        private Dictionary<string, ValueClass> words = new Dictionary<string, ValueClass>();
+
+        public void Add(string wrd, int page)
+        {
+            ValueClass val;
 
             if(words.TryGetValue(wrd, out val))
             {
-                words[wrd]++;
+                words[wrd].count++;
+                words[wrd].AddPage(page);
             }
             else
             {
-                words.Add(wrd, 1);
+                words.Add(wrd, new ValueClass(1));
             }
         }
 
@@ -39,16 +60,15 @@ namespace Concordance
             {
                 using (StreamWriter sw = new StreamWriter(filePath))
                 {
-                    foreach (KeyValuePair<string, int> w in wrds)
+                    foreach (KeyValuePair<string, ValueClass> w in wrds)
                     {
                         if (!w.Key.StartsWith(firstLetter))
                         {
                             firstLetter = w.Key.Substring(0, 1);
-                            sw.WriteLine("");
                             sw.WriteLine("{0}", firstLetter.ToUpper());
                         }
 
-                        sw.WriteLine("{0}  {1}", w.Key, w.Value);
+                        sw.WriteLine("{0}  {1}  {2}", w.Key, w.Value.count, w.Value.Pages[1]);
                     }
                 }
             }
