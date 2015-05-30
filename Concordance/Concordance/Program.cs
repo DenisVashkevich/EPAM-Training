@@ -12,10 +12,10 @@ namespace Concordance
     {
         static void Main(string[] args)
         {
-            const int StringsInPage = 60;
+            const int StringsInPage = 3;
 
-            string fp = "d:\\2001SpaceOdyssey.txt";
-            Concordance wwords = new Concordance();
+            string fp = "d:\\The Hunger Games.txt";
+            Concordance words = new Concordance();
             try
             {
                 using (StreamReader sr = new StreamReader(fp))
@@ -25,20 +25,23 @@ namespace Concordance
                     {
                         string s = sr.ReadLine();
                         stringCounter++;
-                        string[] sar = s.Split(new char[] { '-','(',')','-','$','/','?','"',' ', ',', '.', ':', '!', ';', '\t' });
+                        string[] sar = s.Split(new char[] { '-','(',')','+','$','/','?','"',' ', ',', '.', ':', '!', ';', '\t', 
+                                                            '{','}','1', '2', '3', '4', '5', '6', '7', '8', '9', '0' });
                         foreach (string ss in sar)
                         {
                             if (ss.Trim() != "")
-                                wwords.Add(ss.ToLower(), ((stringCounter / StringsInPage)+1));
+                                words.Add(ss.ToLower(), ((stringCounter / StringsInPage)));
                         }
                     }
                 }
             }
             catch(FileNotFoundException ex) 
-            { 
+            {
+                Console.WriteLine("{0}",ex.Message);
+                Console.ReadLine();
             }
 
-            wwords.SaveReportToFile("D:\\testreport.txt");
+            words.SaveReportToFile("D:\\testreport.txt");
         }
     }
 }

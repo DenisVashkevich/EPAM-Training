@@ -12,7 +12,7 @@ namespace Concordance
         {
             public int count;
             private List<int> pages = new List<int>();
-
+            
             public ValueClass(int page)
             {
                 this.count = 1;
@@ -32,7 +32,7 @@ namespace Concordance
                     str.Append(p.ToString());
                     str.Append(" "); 
                 }
-                return str.ToString();
+                return str.ToString().TrimEnd();
             }
         }
 
@@ -75,8 +75,7 @@ namespace Concordance
                             firstLetter = w.Key.Substring(0, 1);
                             sw.WriteLine("{0}", firstLetter.ToUpper());
                         }
-
-                        sw.WriteLine("{0}........{1} :  {2}", w.Key, w.Value.count, w.Value.ToString());
+                        sw.WriteLine(new StringBuilder().Append(w.Key).ToString().PadRight(25, '.') + "{0}: {1}", w.Value.count, w.Value.ToString());
                     }
                 }
             }
