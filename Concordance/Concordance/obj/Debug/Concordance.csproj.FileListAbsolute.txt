@@ -4,3 +4,9 @@ e:\visual studio 2013\Projects\Concordance\Concordance\bin\Debug\Concordance.pdb
 e:\visual studio 2013\Projects\Concordance\Concordance\obj\Debug\Concordance.csprojResolveAssemblyReference.cache
 e:\visual studio 2013\Projects\Concordance\Concordance\obj\Debug\Concordance.exe
 e:\visual studio 2013\Projects\Concordance\Concordance\obj\Debug\Concordance.pdb
+D:\visual studio 2013\Projects\Concordance\Concordance\bin\Debug\Concordance.exe.config
+D:\visual studio 2013\Projects\Concordance\Concordance\obj\Debug\Concordance.exe
+D:\visual studio 2013\Projects\Concordance\Concordance\obj\Debug\Concordance.pdb
+D:\visual studio 2013\Projects\Concordance\Concordance\bin\Debug\Concordance.exe
+D:\visual studio 2013\Projects\Concordance\Concordance\bin\Debug\Concordance.pdb
+D:\visual studio 2013\Projects\Concordance\Concordance\obj\Debug\Concordance.csprojResolveAssemblyReference.cache

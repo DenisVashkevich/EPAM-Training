@@ -14,7 +14,7 @@ namespace Concordance
         {
             const int StringsInPage = 60;
 
-            string fp = "d:\\test.txt";
+            string fp = "d:\\2001SpaceOdyssey.txt";
             Concordance wwords = new Concordance();
             try
             {
@@ -25,7 +25,7 @@ namespace Concordance
                     {
                         string s = sr.ReadLine();
                         stringCounter++;
-                        string[] sar = s.Split(new char[] { ' ', ',', '.', ':', '!', ';', '\t' });
+                        string[] sar = s.Split(new char[] { '-','(',')','-','$','/','?','"',' ', ',', '.', ':', '!', ';', '\t' });
                         foreach (string ss in sar)
                         {
                             if (ss.Trim() != "")
@@ -38,8 +38,7 @@ namespace Concordance
             { 
             }
 
-            wwords.SaveReportToFile(@"D:\\testreport.txt");
-            Console.ReadLine();
+            wwords.SaveReportToFile("D:\\testreport.txt");
         }
     }
 }

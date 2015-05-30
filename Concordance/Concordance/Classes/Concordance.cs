@@ -11,9 +11,7 @@ namespace Concordance
         private class ValueClass
         {
             public int count;
-            private int[] pages = new int[100];
-
-            public int[] Pages { get { return pages; } }
+            private List<int> pages = new List<int>();
 
             public ValueClass(int page)
             {
@@ -23,8 +21,18 @@ namespace Concordance
 
             public void AddPage(int page)
             {
-                if ((page != 0) && !pages.Contains(page)) 
-                    this.pages[1] = page;
+                if (!pages.Contains(page)) pages.Add(page);
+            }
+
+            public override string ToString()
+            {
+                StringBuilder str = new StringBuilder();
+                foreach(int p in pages)
+                {
+                    str.Append(p.ToString());
+                    str.Append(" "); 
+                }
+                return str.ToString();
             }
         }
 
@@ -41,7 +49,7 @@ namespace Concordance
             }
             else
             {
-                words.Add(wrd, new ValueClass(1));
+                words.Add(wrd, new ValueClass(page));
             }
         }
 
@@ -68,7 +76,7 @@ namespace Concordance
                             sw.WriteLine("{0}", firstLetter.ToUpper());
                         }
 
-                        sw.WriteLine("{0}  {1}  {2}", w.Key, w.Value.count, w.Value.Pages[1]);
+                        sw.WriteLine("{0}........{1} :  {2}", w.Key, w.Value.count, w.Value.ToString());
                     }
                 }
             }
