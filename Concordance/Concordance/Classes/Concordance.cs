@@ -38,6 +38,11 @@ namespace Concordance
 
         private Dictionary<string, ValueClass> words = new Dictionary<string, ValueClass>();
 
+        /// <summary> 
+        /// Adds a word to a concordance
+        /// </summary> 
+        /// <param name ="wrd">Word to add</param> 
+        /// <param name ="page">Number of page containing the word</param>
         public void Add(string wrd, int page)
         {
             ValueClass val;
@@ -52,17 +57,16 @@ namespace Concordance
                 words.Add(wrd, new ValueClass(page));
             }
         }
-
-        public void AddRange()
-        {
-
-        }
         
+        /// <summary>
+        /// Saves word index to a file
+        /// </summary>
+        /// <param name="filePath">The complete filepath to save to</param>
         public void SaveReportToFile(string filePath)
         {
             string firstLetter = " ";
 
-            var wrds = from ww in words orderby ww.Key ascending select ww;
+            var wrds = from w in words orderby w.Key ascending select w;
 
             try
             {
@@ -79,11 +83,13 @@ namespace Concordance
                     }
                 }
             }
-            catch (FileNotFoundException ex)
+            catch (IOException ex)
             {
+                Console.WriteLine(ex.Message);
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
