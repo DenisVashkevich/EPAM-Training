@@ -9,7 +9,6 @@ namespace TelephoneExchange
 {
     public class Port : INotifyPropertyChanged
     {
-        private TelephoneExchange _tes;
         private PortState _state;
 
         public int Id { get; private set; }
@@ -30,9 +29,8 @@ namespace TelephoneExchange
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Port(TelephoneExchange tes,int id)
+        public Port(int id)
         {
-            _tes = tes;
             Id = id;
             State = PortState.Blocked;
         }
@@ -45,14 +43,14 @@ namespace TelephoneExchange
             }
         }
 
-        public void TerminalDisconnected()
+        public void OnTerminalUnPluged(object sender, EventArgs e)
         {
             this.State = PortState.TerminalDisconnected;
         }
 
-        public void TerminalConnected()
+        public void OnTerminalPlugedIn(object sender, EventArgs e)
         {
-            this._tes.InitializeTerminal(this);
+            this.State = PortState.Initializing;
         }
     }
 }

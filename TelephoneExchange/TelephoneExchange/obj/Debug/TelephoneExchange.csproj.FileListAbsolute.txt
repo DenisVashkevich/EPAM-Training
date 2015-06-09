@@ -1,1 +1,2 @@
 e:\visual studio 2013\Projects\TelephoneExchange\TelephoneExchange\bin\Debug\TelephoneExchange.exe.config
+e:\visual studio 2013\Projects\TelephoneExchange\TelephoneExchange\obj\Debug\TelephoneExchange.csprojResolveAssemblyReference.cache

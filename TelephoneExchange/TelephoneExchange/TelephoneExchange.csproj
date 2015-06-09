@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallEventArgs.cs" />
+    <Compile Include="CallInfo.cs" />
+    <Compile Include="Contract.cs" />
+    <Compile Include="JustCallAndPayTariffPlan.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="PortState.cs" />
     <Compile Include="Program.cs" />

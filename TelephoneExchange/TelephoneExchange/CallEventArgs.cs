@@ -5,10 +5,8 @@ using System.Text;
 
 namespace TelephoneExchange
 {
-    public abstract class TariffPlan
+    public class CallEventArgs : EventArgs
     {
-        public string PlanName { get; protected set; }
-        
 
     }
 }

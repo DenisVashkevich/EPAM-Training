@@ -7,22 +7,43 @@ namespace TelephoneExchange
 {
     public class Terminal
     {
-        private Port MyPort { get; }
-        public string MyPhoneNumber { get; }
+        private int phoneNumber;
+        public string  MyPhoneNumber 
+            {
+                get
+                {
+                    return phoneNumber.ToString().Substring(0, 3) 
+                        + "-" 
+                        + phoneNumber.ToString().Substring(3, 5) 
+                        + "-" 
+                        + phoneNumber.ToString().Substring(5, 7);
+                }
+            }
 
-        public void PlugIn()
+        public event EventHandler PlugIn;
+        public event EventHandler Unplug;
+
+        public Terminal(int phoneNum)
         {
-            MyPort.TerminalDisconnected();
+            phoneNumber = phoneNum;
         }
 
-        public void Unplug()
+        
+        public void PlugInTerminal()
         {
-            MyPort.TerminalConnected();
+            if (PlugIn != null) 
+                PlugIn(this, new EventArgs());
+        }
+
+        public void UnplugTerminal()
+        {
+            if (Unplug != null) 
+                Unplug(this, new EventArgs());
         }
 
         public void Call()
         {
-
         }
+
     }
 }

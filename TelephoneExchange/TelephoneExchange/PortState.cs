@@ -11,6 +11,8 @@ namespace TelephoneExchange
         Busy,
         Blocked,
         IncomingCall,
-        TerminalDisconnected
+        OutgoingCall,
+        TerminalDisconnected,
+        Initializing
     }
 }
