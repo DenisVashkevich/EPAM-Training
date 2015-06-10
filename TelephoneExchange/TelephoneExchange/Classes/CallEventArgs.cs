@@ -7,6 +7,6 @@ namespace TelephoneExchange
 {
     public class CallEventArgs : EventArgs
     {
-
+        public int PhoneNumber;
     }
 }

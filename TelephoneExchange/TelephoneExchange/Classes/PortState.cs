@@ -9,10 +9,8 @@ namespace TelephoneExchange
     {
         Ready,
         Busy,
-        Blocked,
         IncomingCall,
         OutgoingCall,
-        TerminalDisconnected,
-        Initializing
+        TerminalDisconnected
     }
 }

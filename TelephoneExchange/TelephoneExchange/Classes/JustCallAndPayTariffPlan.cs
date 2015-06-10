@@ -14,5 +14,10 @@ namespace TelephoneExchange
             PlanName = "Just Call And Pay";
             MinuteCost = 0.30M;
         }
+
+        public override decimal CalculteCallCost(CallInfo info)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

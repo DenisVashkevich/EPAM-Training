@@ -7,8 +7,10 @@ namespace TelephoneExchange
 {
     public class CommunicationCompany
     {
-        private List<Subscriber> Clients = new List<Subscriber>();
-
-
+        private List<ContractExemplar> Contracts = new List<ContractExemplar>();
+        public void AddContract(ContractExemplar newContract)
+        {
+            Contracts.Add(newContract);
+        }
     }
 }

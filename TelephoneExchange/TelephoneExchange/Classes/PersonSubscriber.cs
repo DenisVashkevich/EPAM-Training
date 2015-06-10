@@ -11,7 +11,6 @@ namespace TelephoneExchange
         public string LastName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public string PassportNumber { get; private set; }
-        public ContractExemplar Contract { get; private set; }
 
         public PersonSubscriber(int id, string fName, string sName, DateTime dtBirth, string passNum) : base(id)
         {

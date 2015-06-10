@@ -49,7 +49,7 @@
     <Compile Include="Classes\PersonSubscriber.cs" />
     <Compile Include="Classes\Port.cs" />
     <Compile Include="Classes\PortState.cs" />
-    <Compile Include="ContractExemplar.cs" />
+    <Compile Include="Classes\ContractExemplar.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Subscriber.cs" />
