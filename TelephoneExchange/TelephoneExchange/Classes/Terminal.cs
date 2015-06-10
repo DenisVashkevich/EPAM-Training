@@ -2,31 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TelephoneExchange.Interfaces;
 
 namespace TelephoneExchange
 {
-    public class Terminal
+    public class Terminal : ITerminal
     {
-        private int phoneNumber;
-        public string  MyPhoneNumber 
-            {
-                get
-                {
-                    return phoneNumber.ToString().Substring(0, 3) 
-                        + "-" 
-                        + phoneNumber.ToString().Substring(3, 5) 
-                        + "-" 
-                        + phoneNumber.ToString().Substring(5, 7);
-                }
-            }
 
         public event EventHandler PlugIn;
         public event EventHandler Unplug;
-
-        public Terminal(int phoneNum)
-        {
-            phoneNumber = phoneNum;
-        }
 
         
         public void PlugInTerminal()

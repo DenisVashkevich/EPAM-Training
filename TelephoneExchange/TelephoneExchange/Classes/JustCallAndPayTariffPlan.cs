@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TelephoneExchange.Interfaces;
 
 namespace TelephoneExchange
 {
-    public class JustCallAndPayTariffPlan : TariffPlan
+    public class JustCallAndPayTariffPlan : ITariffPlan
     {
         public decimal MinuteCost { get; protected set; }
 
-        public JustCallAndPayTariffPlan()
+        public string PlanName
         {
-            PlanName = "Just Call And Pay";
-            MinuteCost = 0.30M;
+            get { throw new NotImplementedException(); }
         }
 
-        public override decimal CalculteCallCost(CallInfo info)
+        public decimal CalculateCallCost(CallInfo info)
         {
             throw new NotImplementedException();
         }

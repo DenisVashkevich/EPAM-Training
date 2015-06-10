@@ -10,9 +10,7 @@ namespace TelephoneExchange
     public class Port : INotifyPropertyChanged
     {
         private PortState _state;
-        public int PhoneNumber { get; set; }
 
-        //public int Id { get; private set; }
         public PortState State 
         {
             get { return this._state; }
@@ -29,11 +27,6 @@ namespace TelephoneExchange
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public Port(int phoneNumber)
-        {
-            PhoneNumber = phoneNumber;
-        }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
