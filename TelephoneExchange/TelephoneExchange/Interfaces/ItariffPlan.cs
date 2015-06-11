@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TelephoneExchange.Interfaces
 {
-    interface ITariffPlan
+    public interface ITariffPlan
     {
-        public string PlanName { get; }
-        public decimal CalculateCallCost(CallInfo info);
+        string PlanName { get; }
+        decimal CalculateCallCost(CallInfo info);
     }
 }

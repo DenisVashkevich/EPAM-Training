@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelephoneExchange.Interfaces
 {
-    interface ITerminal
+    public interface ITerminal
     {
     }
 }

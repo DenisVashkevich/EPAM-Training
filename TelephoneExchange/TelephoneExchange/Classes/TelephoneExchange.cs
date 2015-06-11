@@ -23,22 +23,15 @@ namespace TelephoneExchange
 
         }
 
-        private List<Port> Ports = new List<Port>();
+        //private List<Port> Ports = new List<Port>();
         private List<CallInfo> CallsHistory = new List<CallInfo>();
-        //private Dictionary<int, Port> Ports = new Dictionary<int, Port>();
+        private Dictionary<int, Port> Ports = new Dictionary<int, Port>();
         private Dictionary<int, Terminal> Terminals = new Dictionary<int, Terminal>();
 
         public TelephoneExchange()
         {
         }
 
-        public void AddPort(int phoneNum)
-        {
-            Port newPort = new Port();
-            newPort.PropertyChanged += this.OnPortStateChanged;
-            Ports.Add(newPort);
-            
-        }
 
         public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -49,9 +42,14 @@ namespace TelephoneExchange
             }
         }
 
-        private bool DispatchCall(int phoneNumber)
+        public void OnContractAdded(object sender, ContractAddedEventArgs e)
         {
-            return true;
+            foreach (int p in e.TelephoneNumbers)
+            {
+                Ports.Add(p, new Port());
+                Terminals.Add(p, new Terminal());
+            }
         }
+
     }
 }

@@ -8,10 +8,24 @@ namespace TelephoneExchange
 {
     public class CommunicationCompany
     {
-        private List<IContract> Contracts = new List<IContract>();
-        public void AddContract(IContract newContract)
+        public EventHandler<ContractAddedEventArgs> ContractAdded;
+
+        private List<AbstractContract> Contracts = new List<AbstractContract>();
+
+        public bool AddContract(AbstractContract newContract)
         {
-            Contracts.Add(newContract);
+            if (ContractAdded != null)
+            {
+                Contracts.Add(newContract);
+                ContractAdded(this, new ContractAddedEventArgs(newContract.GetPhoneNumbers()));
+                return true;
+            }
+            return false;
+        }
+
+        private void AddPortAndTerminal()
+        {
+
         }
     }
 }

@@ -48,32 +48,45 @@
   <Class Name="TelephoneExchange.CallInfo">
     <Position X="7.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgACAAAAAAAAAAAAIAAkAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgACAAAAAAAAAAAAIAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\CallInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TelephoneExchange.PersonContract">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="9.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAQAAAAAABAAABAAAAAACAAAA=</HashCode>
-      <FileName>Classes\PersonContractExemplar.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\PersonContract.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TelephoneExchange.CommunicationCompany">
     <Position X="2.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAgIAAAAAAA=</HashCode>
       <FileName>Classes\CommunicationCompany.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TelephoneExchange.PersonSubscriber">
-    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAIg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIg=</HashCode>
       <FileName>Classes\PersonSubscriber.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TelephoneExchange.ContractAddedEventArgs">
+    <Position X="7.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\ContractAddedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TelephoneExchange.AbstractContract">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAEAAAAAQAAAAAABAAABAAAAAACAAAA=</HashCode>
+      <FileName>Classes\AbstractContract.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Enum Name="TelephoneExchange.PortState">
     <Position X="0.5" Y="4.75" Width="1.5" />

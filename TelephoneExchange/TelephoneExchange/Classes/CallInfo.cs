@@ -7,10 +7,9 @@ namespace TelephoneExchange
 {
     public class CallInfo
     {
-        public Subscriber Caller {get; private set;}
-        public Subscriber Receiver { get; private set; }
-        public TimeSpan Duration { get; }
-        public DateTime StartTime { get; private set; }
-        public DateTime EndTime { get; private set; }
+        public int Caller {get; set;}
+        public int Receiver { get; set; }
+        public TimeSpan Duration { get; set; }
+        public DateTime StartTime { get; set; }
     }
 }

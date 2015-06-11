@@ -20,11 +20,5 @@ namespace TelephoneExchange
             DateOfBirth = dtBirth;
             PassportNumber = passNum;
         }
-
-        public void ChangeTariffPlan()
-        {
-
-        }
-
     }
 }
