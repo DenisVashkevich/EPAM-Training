@@ -7,6 +7,10 @@ namespace TelephoneExchange
 {
     public class CallEventArgs : EventArgs
     {
-        public int PhoneNumber;
+        public int PhoneNumber { get; private set; }
+        public CallEventArgs(int phoneNum)
+        {
+            PhoneNumber = phoneNum;
+        }
     }
 }

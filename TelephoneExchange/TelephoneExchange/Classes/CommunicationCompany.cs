@@ -23,9 +23,5 @@ namespace TelephoneExchange
             return false;
         }
 
-        private void AddPortAndTerminal()
-        {
-
-        }
     }
 }

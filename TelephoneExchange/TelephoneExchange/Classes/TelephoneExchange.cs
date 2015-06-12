@@ -10,34 +10,36 @@ namespace TelephoneExchange
     {
         private class Connection
         {
-            private Terminal caller;
-            private Terminal receiver;
+            private Port caller;
+            private Port receiver;
             private DateTime ConnectionStarted;
             private TimeSpan Duration;
-            public Connection(Terminal T1, Terminal T2)
+            public Connection(Port port1, Port port2)
             {
-                caller = T1;
-                receiver = T2;
+                caller = port1;
+                receiver =port2;
             }
 
+            private void  AddCallInforecord()
+            {
 
+            }
         }
 
-        //private List<Port> Ports = new List<Port>();
         private List<CallInfo> CallsHistory = new List<CallInfo>();
-        private Dictionary<int, Port> Ports = new Dictionary<int, Port>();
-        private Dictionary<int, Terminal> Terminals = new Dictionary<int, Terminal>();
-
-        public TelephoneExchange()
-        {
-        }
-
+        public Dictionary<int, Port> Ports = new Dictionary<int, Port>();
+        public Dictionary<Port, int> PhoneNumbers = new Dictionary<Port, int>();
 
         public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch((sender as Port).State)
+            Port port1 = sender as Port;
+            switch(port1.State)
             {
-                case PortState.OutgoingCall : 
+                case PortState.OutgoingCall :
+                    Port port2;
+                    Ports.TryGetValue(port1.PhoneNumberInfo, out port2);
+                    Connection con = new Connection(port1, port2);
+
                     break;
             }
         }
@@ -46,8 +48,9 @@ namespace TelephoneExchange
         {
             foreach (int p in e.TelephoneNumbers)
             {
+                Console.WriteLine("ATS : {0}", p);
                 Ports.Add(p, new Port());
-                Terminals.Add(p, new Terminal());
+                //Terminals.Add(p, new Terminal());
             }
         }
 

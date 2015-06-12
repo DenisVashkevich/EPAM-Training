@@ -13,7 +13,16 @@ namespace TelephoneExchange
             CommunicationCompany MegaComCompany = new CommunicationCompany();
             TelephoneExchange ATS = new TelephoneExchange();
 
+            MegaComCompany.ContractAdded += ATS.OnContractAdded;
+            AddSomeClients(MegaComCompany);
 
+            foreach (KeyValuePair<int,Port> kp in ATS.Ports)
+            {
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine(kp.Key);
+            }
+
+            Console.ReadLine();
         }
 
         static void AddSomeClients(CommunicationCompany company)
@@ -22,19 +31,19 @@ namespace TelephoneExchange
             PersonContract Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297689245});
             company.AddContract(Contract);
             Client = new PersonSubscriber("Andrey", "Ignatovich", new DateTime(1983, 2, 5), "KH132584");
-            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297689245});
+            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297563185});
             company.AddContract(Contract);
             Client = new PersonSubscriber("Evgeniy", "Zagorniy", new DateTime(1992, 9, 14), "KH2685467");
-            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297689245});
+            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297526358});
             company.AddContract(Contract);
             Client = new PersonSubscriber("Tatiana", "Bitkevich", new DateTime(1989, 12, 12), "KH2367159");
-            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297689245});
+            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297836981});
             company.AddContract(Contract);
             Client = new PersonSubscriber("Olga", "Grinuk", new DateTime(1972, 11, 1), "KH9567561");
-            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297689245});
+            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {295158624});
             company.AddContract(Contract);
             Client = new PersonSubscriber("Oleg", "Bogdanovich", new DateTime(1978, 1, 15), "KH1698256");
-            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {297689245});
+            Contract = new PersonContract(2456, Client, new JustCallAndPayTariffPlan(), new List<int>(1) {298036018});
             company.AddContract(Contract);
         }
 
