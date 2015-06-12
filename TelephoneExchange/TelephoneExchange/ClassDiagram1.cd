@@ -34,14 +34,14 @@
     <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Classes\CallEventArgs.cs</FileName>
+      <FileName>Classes\EventsArgs\CallEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TelephoneExchange.JustCallAndPayTariffPlan">
     <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACQAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Classes\JustCallAndPayTariffPlan.cs</FileName>
+      <FileName>Classes\TariffPlans\JustCallAndPayTariffPlan.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -52,40 +52,46 @@
       <FileName>Classes\CallInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TelephoneExchange.PersonContract">
-    <Position X="9.5" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Classes\PersonContract.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="TelephoneExchange.CommunicationCompany">
     <Position X="2.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAEAAAAgAAAAAAAAAAAICAAAAAA=</HashCode>
       <FileName>Classes\CommunicationCompany.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TelephoneExchange.PersonSubscriber">
+  <Class Name="TelephoneExchange.Subscriber">
     <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIg=</HashCode>
-      <FileName>Classes\PersonSubscriber.cs</FileName>
+      <HashCode>CAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAAAAABIg=</HashCode>
+      <FileName>Classes\Subscriber.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TelephoneExchange.ContractAddedEventArgs">
+  <Class Name="TelephoneExchange.NewContractEventArgs">
     <Position X="7.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Classes\ContractAddedEventArgs.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\EventsArgs\NewContractEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TelephoneExchange.AbstractContract">
+  <Class Name="TelephoneExchange.ContractHead">
     <Position X="9.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAEAAAAAQAAAAAABAAABAAAAAACAAAA=</HashCode>
-      <FileName>Classes\AbstractContract.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAQAAAAAABAAABAAAAAACAAAA=</HashCode>
+      <FileName>Classes\Contracts\ContractHead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TelephoneExchange.SimpleContractForPerson" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAQAAAAAAQAAAAAAAAAAAAAIg=</HashCode>
+      <FileName>Classes\Contracts\SimpleContractForPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TelephoneExchange.JustCallAndPayContractForPerson">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Contracts\JustCallAndPayContractForPerson.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="TelephoneExchange.PortState">

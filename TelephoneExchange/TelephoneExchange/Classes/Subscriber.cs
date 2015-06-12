@@ -2,16 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TelephoneExchange.Classes;
+using TelephoneExchange.Interfaces;
 
 namespace TelephoneExchange
 {
-    abstract class Subscriber
+    public class Subscriber : Subscribers
     {
-        public int Id { get; private set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public DateTime DateOfBirth { get; private set; }
+        public string PassportNumber { get; private set; }
+        public Terminal Telephone { get; private set; }
 
-        public Subscriber(int id)
+        public Subscriber(string fName, string sName, DateTime dtBirth, string passNum)
         {
-            Id = id;
+            FirstName = fName;
+            LastName = sName;
+            DateOfBirth = dtBirth;
+            PassportNumber = passNum;
+        }
+
+        public override string GetName()
+        {
+            return FirstName + " " + LastName; 
+        }
+
+        public override void OnContractSigned(object sender, ContractSignedEventArgs e)
+        {
+            ContractCopy = e.contract;
+            Telephone = e.terminal;
         }
     }
 }

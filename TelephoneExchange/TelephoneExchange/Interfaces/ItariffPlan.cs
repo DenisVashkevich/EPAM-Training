@@ -8,7 +8,6 @@ namespace TelephoneExchange.Interfaces
 {
     public interface ITariffPlan
     {
-        string PlanName { get; }
         decimal CalculateCallCost(CallInfo info);
     }
 }

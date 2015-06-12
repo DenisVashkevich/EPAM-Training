@@ -8,9 +8,14 @@ namespace TelephoneExchange.Interfaces
 {
     public interface ITerminal
     {
-        public void PlugInTerminal();
-        public void UnplugTerminal();
-        public void Call();
-        public void Drop();
+        void PlugInTerminal();
+        void UnplugTerminal();
+        void CallTo(int phoneNumber);
+        void DropCall();
+        event EventHandler PlugIn;
+        event EventHandler Unplug;
+        event EventHandler<CallEventArgs> Call;
+        event EventHandler Drop;
+
     }
 }

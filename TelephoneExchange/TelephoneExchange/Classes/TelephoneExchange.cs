@@ -44,15 +44,14 @@ namespace TelephoneExchange
             }
         }
 
-        public void OnContractAdded(object sender, ContractAddedEventArgs e)
+        public void OnContractAdded(object sender, NewContractEventArgs e)
         {
-            foreach (int p in e.TelephoneNumbers)
-            {
-                Console.WriteLine("ATS : {0}", p);
-                Ports.Add(p, new Port());
-                //Terminals.Add(p, new Terminal());
-            }
+            Console.WriteLine("ATS : {0}", e.TelephoneNumber);
+            Port port = new Port();
+            e.port = port;
+            Ports.Add(e.TelephoneNumber, port);
+            PhoneNumbers.Add(port, e.TelephoneNumber);
         }
-
     }
+
 }

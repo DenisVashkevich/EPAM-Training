@@ -45,5 +45,20 @@ namespace TelephoneExchange
         {
             this.State = PortState.Ready;
         }
+
+        public void OnOutgoingCall(object sender, CallEventArgs e)
+        {
+
+        }
+
+        public void OnIncommingCall(object sender, CallEventArgs e)
+        {
+
+        }
+
+        public void OnDropCall(object sender, EventArgs e)
+        {
+
+        }
     }
 }

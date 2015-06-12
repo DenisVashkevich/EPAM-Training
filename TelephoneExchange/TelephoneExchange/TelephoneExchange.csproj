@@ -41,19 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AbstractContract.cs" />
-    <Compile Include="Classes\CallEventArgs.cs" />
+    <Compile Include="Classes\Contracts\ContractHead.cs" />
+    <Compile Include="Classes\EventsArgs\CallEventArgs.cs" />
     <Compile Include="Classes\CallInfo.cs" />
     <Compile Include="Classes\CommunicationCompany.cs" />
-    <Compile Include="Classes\PersonContract.cs" />
-    <Compile Include="Classes\JustCallAndPayTariffPlan.cs" />
-    <Compile Include="Classes\PersonSubscriber.cs" />
+    <Compile Include="Classes\EventsArgs\ContractSignedEventArgs.cs" />
+    <Compile Include="Classes\Contracts\SimpleContractForPerson.cs" />
+    <Compile Include="Classes\TariffPlans\JustCallAndPayTariffPlan.cs" />
+    <Compile Include="Classes\Subscriber.cs" />
     <Compile Include="Classes\Port.cs" />
     <Compile Include="Classes\PortState.cs" />
-    <Compile Include="Classes\ContractAddedEventArgs.cs" />
-    <Compile Include="Interfaces\ISubscriber.cs" />
+    <Compile Include="Classes\EventsArgs\NewContractEventArgs.cs" />
+    <Compile Include="Classes\Subscribers.cs" />
     <Compile Include="Interfaces\ITerminal.cs" />
     <Compile Include="Interfaces\ITariffPlan.cs" />
+    <Compile Include="Classes\Contracts\JustCallAndPayContractForPerson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\TelephoneExchange.cs" />
