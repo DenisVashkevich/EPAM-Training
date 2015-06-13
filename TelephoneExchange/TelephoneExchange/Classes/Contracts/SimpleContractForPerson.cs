@@ -12,7 +12,7 @@ namespace TelephoneExchange
         public string LastName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public string PassportNumber { get; private set; }
-        public int PhoneNumber { get; private set; }
+        //public int PhoneNumber { get; private set; }
         
         public SimpleContractForPerson(int contracrNum, ITariffPlan plan, int phoneNumber, string firstName, string lastName, DateTime dateOfBirth, string passportNumber) : base(contracrNum, plan, phoneNumber)
         {

@@ -8,9 +8,9 @@ namespace TelephoneExchange
     public enum PortState
     {
         Ready,
-        Busy,
         IncomingCall,
         OutgoingCall,
+        CallAccepted,
         TerminalDisconnected
     }
 }

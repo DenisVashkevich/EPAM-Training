@@ -12,8 +12,8 @@ namespace TelephoneExchange
         public event EventHandler Unplug;
         public event EventHandler<CallEventArgs> Call;
         public event EventHandler Drop;
+        public event EventHandler Answer;
 
-        
         public void PlugInTerminal()
         {
             var p = PlugIn;
@@ -30,8 +30,9 @@ namespace TelephoneExchange
 
         public void CallTo(int phoneNumber)
         {
+            
             var c = Call;
-            if (c != null)
+            if (c != null) 
                 c(this, new CallEventArgs(phoneNumber));
         }
 
@@ -41,5 +42,13 @@ namespace TelephoneExchange
             if (d != null)
                 d(this, new EventArgs());
         }
+
+
+        public void AnswerCall()
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }

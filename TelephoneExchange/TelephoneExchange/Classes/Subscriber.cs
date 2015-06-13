@@ -13,7 +13,7 @@ namespace TelephoneExchange
         public string LastName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public string PassportNumber { get; private set; }
-        public Terminal Telephone { get; private set; }
+        //public Terminal Telephone { get; set; }
 
         public Subscriber(string fName, string sName, DateTime dtBirth, string passNum)
         {
@@ -28,10 +28,9 @@ namespace TelephoneExchange
             return FirstName + " " + LastName; 
         }
 
-        public override void OnContractSigned(object sender, ContractSignedEventArgs e)
+        public int GetContractNumber()
         {
-            ContractCopy = e.contract;
-            Telephone = e.terminal;
+            return Contract.ContractNumber;
         }
     }
 }

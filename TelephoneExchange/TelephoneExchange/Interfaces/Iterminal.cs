@@ -12,10 +12,13 @@ namespace TelephoneExchange.Interfaces
         void UnplugTerminal();
         void CallTo(int phoneNumber);
         void DropCall();
+        void AnswerCall();
+
         event EventHandler PlugIn;
         event EventHandler Unplug;
         event EventHandler<CallEventArgs> Call;
         event EventHandler Drop;
+        event EventHandler Answer;
 
     }
 }

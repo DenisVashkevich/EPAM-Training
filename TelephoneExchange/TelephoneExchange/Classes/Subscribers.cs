@@ -8,10 +8,9 @@ namespace TelephoneExchange.Classes
 {
     abstract public class Subscribers
     {
-        protected ContractHead ContractCopy { get; set; }
+        public ContractHead Contract { get; set; }
+        public Terminal Telephone { get; set; }
+        
         abstract public string GetName();
-        abstract public void OnContractSigned(object sender, ContractSignedEventArgs e);
-
-
     }
 }

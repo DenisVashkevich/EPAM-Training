@@ -10,13 +10,13 @@ namespace TelephoneExchange
     public class CommunicationCompany
     {
         public EventHandler<NewContractEventArgs> NewContractRegistering;
-        public EventHandler<ContractSignedEventArgs> ContractSigned;
 
         public Dictionary<int, ContractHead> Contracts = new Dictionary<int, ContractHead>();
         
-        public bool AddContract(ContractHead newContract)
+        //public bool AddContract(ContractHead newContract)
+        public void AddContract(Subscribers newSubscriber, ContractHead newContract)
         {
-            if (NewContractRegistering != null && ContractSigned != null) 
+            if (NewContractRegistering != null) 
             {
                 Contracts.Add(newContract.ContractNumber, newContract);
                 NewContractEventArgs args = new NewContractEventArgs(newContract.PhoneNumber);
@@ -26,10 +26,10 @@ namespace TelephoneExchange
                 terminal.Unplug += args.port.OnTerminalUnPluged;
                 terminal.Call += args.port.OnOutgoingCall;
                 terminal.Drop += args.port.OnDropCall;
-                ContractSigned(this, new ContractSignedEventArgs(newContract, terminal));
-                return true;
+
+                newSubscriber.Contract = newContract;
+                newSubscriber.Telephone = terminal;
             }
-            return false;
         }
 
         public int GenerateNewContractNumber()

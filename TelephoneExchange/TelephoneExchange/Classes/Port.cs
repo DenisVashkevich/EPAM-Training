@@ -48,7 +48,8 @@ namespace TelephoneExchange
 
         public void OnOutgoingCall(object sender, CallEventArgs e)
         {
-
+            PhoneNumberInfo = e.PhoneNumber;
+            this.State = PortState.OutgoingCall;
         }
 
         public void OnIncommingCall(object sender, CallEventArgs e)
