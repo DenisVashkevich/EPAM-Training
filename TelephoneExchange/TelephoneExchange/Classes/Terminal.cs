@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TelephoneExchange.Interfaces;
+using System.ComponentModel;
 
 namespace TelephoneExchange
 {
@@ -43,12 +44,29 @@ namespace TelephoneExchange
                 d(this, new EventArgs());
         }
 
-
         public void AnswerCall()
         {
-            throw new NotImplementedException();
+            var a = Answer;
+            if (a != null)
+                a(this, new EventArgs());
+        }
+        
+        public void OnIncommingCall(object sender, CallEventArgs e)
+        {
+            AnswerCall();
+            System.Threading.Thread.Sleep((int)System.TimeSpan.FromSeconds(10).TotalMilliseconds);
+            DropCall();
         }
 
-        
+        public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Port myPort = sender as Port;
+            switch (myPort.State)
+            {
+                case PortState.IncomingCall:
+                    OnIncommingCall(sender, new CallEventArgs(myPort.PhoneNumberInfo));
+                    break;
+            }
+        }
     }
 }

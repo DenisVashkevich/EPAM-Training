@@ -10,14 +10,14 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAAAAABAAAQIAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AACAAAAAAAAAAAAABAgAQAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Classes\TelephoneExchange.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TelephoneExchange.Port">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAJAAAAAACAABgAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAQAEAAAAAAAJAAAAAACAABgAAAAAAAAAABBQAAAAA=</HashCode>
       <FileName>Classes\Port.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,7 +25,7 @@
   <Class Name="TelephoneExchange.Terminal">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAARAAEAAAQAAAAAAAgAAAAAAAAAAQAAAAAAABAAAA=</HashCode>
+      <HashCode>QACQRAAEAAAQAAAAAAAgAAAAAAAAAAQAAAAAAgBAAAA=</HashCode>
       <FileName>Classes\Terminal.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -62,14 +62,14 @@
   <Class Name="TelephoneExchange.Subscriber">
     <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAAAAABIg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAABIg=</HashCode>
       <FileName>Classes\Subscriber.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TelephoneExchange.NewContractEventArgs">
     <Position X="7.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\EventsArgs\NewContractEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -83,7 +83,7 @@
   <Class Name="TelephoneExchange.SimpleContractForPerson" Collapsed="true">
     <Position X="9.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAAAQAAAAAAQAAAAAAAAAAAAAIg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIg=</HashCode>
       <FileName>Classes\Contracts\SimpleContractForPerson.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -97,7 +97,7 @@
   <Enum Name="TelephoneExchange.PortState">
     <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAABAAAIAEAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAIAEAAAAAAAAAAAAAAAAAAAQAAAAEAAA=</HashCode>
       <FileName>Classes\PortState.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -14,7 +14,7 @@ namespace TelephoneExchange
         {
             get { return this._state; }
  
-            private set
+            set
             {
                 if (value != this._state)
                 {
@@ -24,7 +24,7 @@ namespace TelephoneExchange
                 
             }
         }
-        public int PhoneNumberInfo { get; private set; }
+        public int PhoneNumberInfo { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -60,6 +60,11 @@ namespace TelephoneExchange
         public void OnDropCall(object sender, EventArgs e)
         {
 
+        }
+
+        public void OnAnswerToCall()
+        {
+            this.State = PortState.CallAccepted;
         }
     }
 }

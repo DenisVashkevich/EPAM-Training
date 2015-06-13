@@ -11,5 +11,15 @@ namespace TelephoneExchange
         public int Receiver { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime StartTime { get; set; }
+
+        public CallInfo() { }
+
+        public CallInfo(CallInfo callInfo)
+        {
+            Caller = callInfo.Caller;
+            Receiver = callInfo.Receiver;
+            Duration = callInfo.Duration;
+            StartTime = callInfo.StartTime;
+        }
     }
 }

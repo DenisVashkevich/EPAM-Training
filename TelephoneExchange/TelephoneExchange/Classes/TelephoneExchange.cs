@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Diagnostics;
+using TelephoneExchange.Classes.EventsArgs;
 
 namespace TelephoneExchange
 {
@@ -10,41 +12,96 @@ namespace TelephoneExchange
     {
         private class Connection
         {
+            public enum ConnectionState
+            {
+                Initiated,
+                Started
+            }
+
+            private ConnectionState state = ConnectionState.Initiated;
+            private Stopwatch timer;
             private Port caller;
             private Port receiver;
             private DateTime ConnectionStarted;
             private TimeSpan Duration;
+            private TelephoneExchange ats;
 
-            public Connection(Port port1, Port port2)
+            public event EventHandler<CallInfoEventArgs> ConnectionFinished;
+
+            public Connection(Port callerPort, Port receiverPort, TelephoneExchange TelEx)
             {
-                caller = port1;
-            //    receiver =port2;
+                caller = callerPort;
+                receiver = receiverPort;
+                ats = TelEx;
+                caller.PropertyChanged += this.OnPortStatechanged;
+                receiver.PropertyChanged += this.OnPortStatechanged;
             }
 
-            private void  AddCallInforecord()
+            public void DispatchCall()
             {
+                int callerPhoneNumber;
+                ats.PhoneNumbers.TryGetValue(caller, out callerPhoneNumber);
+                receiver.PhoneNumberInfo = callerPhoneNumber;
+                receiver.State = PortState.IncomingCall;
+            }
 
+            public void StartConnection()
+            {
+                //timer = Stopwatch.StartNew();
+                ConnectionStarted = DateTime.Now;                                
+            }
+
+            public void CloseConnection()
+            {
+                //timer.Stop();
+                Duration = new TimeSpan(10000);// timer.Elapsed;
+                caller.PropertyChanged -= this.OnPortStatechanged;
+                receiver.PropertyChanged -= this.OnPortStatechanged;
+
+            }
+
+            private void OnPortStatechanged(object sender, PropertyChangedEventArgs e)
+            {
+                switch((sender as Port).State)
+                {
+                    case PortState.CallAccepted :
+                        //if (sender == receiver) StartConnection();
+                        StartConnection();
+                        break;
+
+                    case PortState.Ready :
+                        if (sender == receiver) caller.State = PortState.Ready; 
+                        else receiver.State = PortState.Ready;
+                        break;
+                }
             }
         }
 
         private List<CallInfo> CallsHistory = new List<CallInfo>();
-        public Dictionary<int, Port> Ports = new Dictionary<int, Port>();
-        public Dictionary<Port, int> PhoneNumbers = new Dictionary<Port, int>();
+        private  Dictionary<int, Port> Ports = new Dictionary<int, Port>();
+        private Dictionary<Port, int> PhoneNumbers = new Dictionary<Port, int>();
+
+        private void OnConnectionFinished(object sender, CallInfoEventArgs e)
+        {
+            Console.WriteLine("Connection finished:/n Caller : {0}; receiver : {1}; Started at {2}; Duration {2}", e.callInfo.Caller, e.callInfo.Receiver, e.callInfo.StartTime, e.callInfo.Duration); ;
+            CallsHistory.Add(e.callInfo);
+        }
 
         public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
         {
-            Port port1 = sender as Port;
-            int tel1;
-            PhoneNumbers.TryGetValue(port1, out tel1);
-            Console.WriteLine("bla bla bla");
-            switch(port1.State)
+            Port callerPort = sender as Port;
+            //int callerPhoneNumber; ;
+//            PhoneNumbers.TryGetValue(callerPort, out callerPhoneNumber);
+            switch (callerPort.State)
             {
                 case PortState.OutgoingCall :
-                    Port port2;
-                    Ports.TryGetValue(port1.PhoneNumberInfo, out port2);
-                    Console.WriteLine("subscriber {0} is calling to Subscriber {1}", tel1, port1.PhoneNumberInfo);
-                    Connection con = new Connection(port1, port2);
-
+                    Port receiverPort;
+                    Ports.TryGetValue(callerPort.PhoneNumberInfo, out receiverPort);
+                    //Console.WriteLine("subscriber {0} is calling to Subscriber {1}", callerPhoneNumber, callerPort.PhoneNumberInfo);
+                    Connection con = new Connection(callerPort, receiverPort, this);
+                    con.ConnectionFinished += this.OnConnectionFinished;
+                    con.DispatchCall();
+                    con.CloseConnection();
                     break;
             }
         }
@@ -58,6 +115,8 @@ namespace TelephoneExchange
             Ports.Add(e.TelephoneNumber, port);
             PhoneNumbers.Add(port, e.TelephoneNumber);
         }
+
+
     }
 
 }

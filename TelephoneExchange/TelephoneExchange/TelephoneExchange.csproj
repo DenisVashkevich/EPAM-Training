@@ -41,13 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ConnectionEventMenager.cs" />
     <Compile Include="Classes\Contracts\ContractHead.cs" />
     <Compile Include="Classes\EventsArgs\CallEventArgs.cs" />
     <Compile Include="Classes\CallInfo.cs" />
     <Compile Include="Classes\CommunicationCompany.cs" />
-    <Compile Include="Classes\EventsArgs\ContractSignedEventArgs.cs" />
     <Compile Include="Classes\Contracts\SimpleContractForPerson.cs" />
+    <Compile Include="Classes\EventsArgs\CallInfoEventArgs.cs" />
     <Compile Include="Classes\TariffPlans\JustCallAndPayTariffPlan.cs" />
     <Compile Include="Classes\Subscriber.cs" />
     <Compile Include="Classes\Port.cs" />
