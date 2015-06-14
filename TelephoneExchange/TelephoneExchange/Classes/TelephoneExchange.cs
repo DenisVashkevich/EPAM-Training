@@ -160,9 +160,28 @@ namespace TelephoneExchange
             }
         }
 
-        public IEnumerable<CallInfo> GetCallsHistory(int phoneNumber)
+        //public IEnumerable<CallInfo> GetCallsHistory(int phoneNumber)
+        //{
+        //    return CallsHistory.Where(ci => ((ci.Caller == phoneNumber) || (ci.Receiver == phoneNumber)));
+        //}
+
+        public IEnumerable<CallInfo> GetCallsHistory(int clientPhoneNumber, DateTime from, DateTime till)
         {
-            return CallsHistory.Where(ci => ((ci.Caller == phoneNumber) || (ci.Receiver == phoneNumber)));
+            return CallsHistory.Where(ci => 
+                ((ci.Caller == clientPhoneNumber) || (ci.Receiver == clientPhoneNumber)) 
+                & ci.StartTime > from 
+                & ci.StartTime < till
+                );
+        }
+
+        public IEnumerable<CallInfo> GetCallsHistory(int clientPhoneNumber, int destinationPhoneNumber, DateTime from, DateTime till)
+        {
+            return CallsHistory.Where(ci =>
+                ((ci.Caller == clientPhoneNumber) || (ci.Receiver == clientPhoneNumber))
+                & ((ci.Caller == destinationPhoneNumber) || (ci.Receiver == destinationPhoneNumber))
+                & ci.StartTime > from
+                & ci.StartTime < till
+                );
         }
     }
 

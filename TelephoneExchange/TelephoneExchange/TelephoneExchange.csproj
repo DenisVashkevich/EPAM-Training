@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Contracts\ContractHead.cs" />
-    <Compile Include="Classes\DetalizationLine.cs" />
+    <Compile Include="Classes\DetalizationRow.cs" />
     <Compile Include="Classes\EventsArgs\CallEventArgs.cs" />
     <Compile Include="Classes\CallInfo.cs" />
     <Compile Include="Classes\CommunicationCompany.cs" />

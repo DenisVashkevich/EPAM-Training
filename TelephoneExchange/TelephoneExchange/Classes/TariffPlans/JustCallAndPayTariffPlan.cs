@@ -11,13 +11,16 @@ namespace TelephoneExchange
         public double MinuteCost { get; protected set; }
         public readonly string PlanName = "Just Call and Pay";
 
-        public JustCallAndPayTariffPlan(double minuteCost = 0.03)
+        public JustCallAndPayTariffPlan()
         {
-            MinuteCost = minuteCost;
+            MinuteCost = 0.3;
         }
-        public double CalculateCallCost(CallInfo info)
+
+        public double CalculateCallCost(int subscriberPhoneNumber, CallInfo info)
         {
-            return info.Duration.Minutes + (info.Duration.Seconds > 0 ? 1 : 0) * this.MinuteCost;
+            return (info.Caller == subscriberPhoneNumber) ? 
+                   (info.Duration.Minutes + (info.Duration.Seconds > 0 ? 1 : 0)) * this.MinuteCost 
+                   : 0;
         }
 
     }

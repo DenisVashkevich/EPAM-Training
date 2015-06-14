@@ -39,11 +39,11 @@ namespace TelephoneExchange
             #endregion Add some subscribers
 
             Subscriber1.Telephone.CallTo(Subscriber2.Contract.PhoneNumber);
-            ATS.GenerateSomeFakeCallInfoRecords(10);
+            ATS.GenerateSomeFakeCallInfoRecords(1000);
 
             
             int j = 0;
-            IEnumerable<DetalizationLine> detal = DenisTeleCom.GetCSubscriberdetalization(Subscriber1.Contract.PhoneNumber);
+            IEnumerable<DetalizationRow> detal = DenisTeleCom.GetSubscriberdetalization(Subscriber1.Contract.PhoneNumber);
             Console.WriteLine("************Detalization for {0}", Subscriber1.Contract.PhoneNumber);
             foreach (var c in detal)
             {
@@ -51,7 +51,8 @@ namespace TelephoneExchange
                 Console.WriteLine("Record # {5}: Date and Time: {0}\n \t Phone Number: {1}\n \t Code: {2}\n \t Duration: {3}\n \t Cost: {4}", 
                     c.calllDateTime, c.phoneNumber, c.code, c.duration, c.cost, ++j);
             }
-
+            Console.WriteLine("=========================================");
+            Console.WriteLine("Total for selected Period: {0}", detal.Sum(d=>d.cost));
             Console.ReadLine();
         }
 

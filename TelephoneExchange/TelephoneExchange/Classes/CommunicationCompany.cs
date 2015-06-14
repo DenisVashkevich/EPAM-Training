@@ -48,18 +48,45 @@ namespace TelephoneExchange
             return Contracts.Count + 2700001;
         }
 
-        public IEnumerable<DetalizationLine> GetCSubscriberdetalization(int phoneNumber)
+        public IEnumerable<DetalizationRow> GetSubscriberdetalization(int phoneNumber, DateTime from = new DateTime(), DateTime till = new DateTime(), double costMoreThen = 0)
         {
-            Func<CallInfo, double> CallCost = Contracts.FirstOrDefault(c => c.Value.PhoneNumber == phoneNumber).Value.GetCurrentTariffPlan().CalculateCallCost;
-            
-            IEnumerable<CallInfo> CallsHistory = ATS.GetCallsHistory(phoneNumber);
+            Func<int, CallInfo, double> CallCost = Contracts.FirstOrDefault(c => c.Value.PhoneNumber == phoneNumber).Value.GetCurrentTariffPlan().CalculateCallCost;
 
+            if (from == till)
+            {
+                from = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                till = DateTime.Today;
+            }
+            IEnumerable<CallInfo> CallsHistory = ATS.GetCallsHistory(phoneNumber, from, till);
             return CallsHistory.Select(ci =>
-                new DetalizationLine(
+                new DetalizationRow(
                     ci.StartTime,
                     ci.Caller == phoneNumber ? ci.Receiver : ci.Caller,
                     ci.Caller == phoneNumber ? 1 : 2,
-                    ci.Duration, CallCost(ci)
+                    ci.Duration, 
+                    CallCost(phoneNumber, ci)
+                    )
+                ).OrderBy(dl => dl.calllDateTime);
+        }
+
+        public IEnumerable<DetalizationRow> GetSubscriberdetalization(int phoneNumber, int destPhoneNUmber, DateTime from = new DateTime(), DateTime till = new DateTime(), double costMoreThen = 0)
+        {
+            Func<int, CallInfo, double> CallCost = Contracts.FirstOrDefault(c => c.Value.PhoneNumber == phoneNumber).Value.GetCurrentTariffPlan().CalculateCallCost;
+
+            if (from == till)
+            {
+                from = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+                till = DateTime.Today;
+            }
+            IEnumerable<CallInfo> CallsHistory = ATS.GetCallsHistory(phoneNumber, destPhoneNUmber, from, till);
+
+            return CallsHistory.Select(ci =>
+                new DetalizationRow(
+                    ci.StartTime,
+                    ci.Caller == phoneNumber ? ci.Receiver : ci.Caller,
+                    ci.Caller == phoneNumber ? 1 : 2,
+                    ci.Duration, 
+                    CallCost(phoneNumber, ci)
                     )
                 ).OrderBy(dl => dl.calllDateTime);
         }
