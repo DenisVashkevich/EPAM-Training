@@ -52,17 +52,17 @@ namespace TelephoneExchange
             this.State = PortState.OutgoingCall;
         }
 
-        public void OnIncommingCall(object sender, CallEventArgs e)
-        {
+        //public void OnIncommingCall(object sender, CallEventArgs e)
+        //{
 
-        }
+        //}
 
         public void OnDropCall(object sender, EventArgs e)
         {
-
+            this.State = PortState.Ready;
         }
 
-        public void OnAnswerToCall()
+        public void OnAnswerToCall(object sender, EventArgs e)
         {
             this.State = PortState.CallAccepted;
         }

@@ -26,6 +26,7 @@ namespace TelephoneExchange
                 terminal.Unplug += args.port.OnTerminalUnPluged;
                 terminal.Call += args.port.OnOutgoingCall;
                 terminal.Drop += args.port.OnDropCall;
+                terminal.Answer += args.port.OnAnswerToCall;
                 args.port.PropertyChanged += terminal.OnPortStateChanged;
                 newSubscriber.Contract = newContract;
                 newSubscriber.Telephone = terminal;

@@ -12,10 +12,11 @@ namespace TelephoneExchange
     {
         private class Connection
         {
-            public enum ConnectionState
+            private enum ConnectionState
             {
                 Initiated,
-                Started
+                Opened,
+                Closed
             }
 
             private ConnectionState state = ConnectionState.Initiated;
@@ -25,39 +26,49 @@ namespace TelephoneExchange
             private DateTime ConnectionStarted;
             private TimeSpan Duration;
             private TelephoneExchange ats;
+            private CallInfo callInformation = new CallInfo();
 
             public event EventHandler<CallInfoEventArgs> ConnectionFinished;
 
             public Connection(Port callerPort, Port receiverPort, TelephoneExchange TelEx)
             {
-                caller = callerPort;
-                receiver = receiverPort;
+                this.caller = callerPort;
+                this.receiver = receiverPort;
                 ats = TelEx;
-                caller.PropertyChanged += this.OnPortStatechanged;
-                receiver.PropertyChanged += this.OnPortStatechanged;
+                this.caller.PropertyChanged += this.OnPortStatechanged;
+                this.receiver.PropertyChanged += this.OnPortStatechanged;
             }
 
             public void DispatchCall()
             {
                 int callerPhoneNumber;
                 ats.PhoneNumbers.TryGetValue(caller, out callerPhoneNumber);
-                receiver.PhoneNumberInfo = callerPhoneNumber;
-                receiver.State = PortState.IncomingCall;
+                this.receiver.PhoneNumberInfo = callerPhoneNumber;
+                this.callInformation.Caller = callerPhoneNumber;
+                this.callInformation.Receiver = caller.PhoneNumberInfo;
+                Console.WriteLine("Dispathing call from {0} to {1}", callerPhoneNumber, caller.PhoneNumberInfo);
+                this.receiver.State = PortState.IncomingCall;
             }
 
             public void StartConnection()
             {
-                //timer = Stopwatch.StartNew();
-                ConnectionStarted = DateTime.Now;                                
+                this.state = ConnectionState.Opened;
+                this.timer = Stopwatch.StartNew();
+                this.ConnectionStarted = DateTime.Now;        
+                this.callInformation.StartTime=this.ConnectionStarted;
+                Console.WriteLine("Subscriber {0} is talking whith subscriber {1}", this.callInformation.Caller, this.callInformation.Receiver);
             }
 
             public void CloseConnection()
             {
-                //timer.Stop();
-                Duration = new TimeSpan(10000);// timer.Elapsed;
-                caller.PropertyChanged -= this.OnPortStatechanged;
-                receiver.PropertyChanged -= this.OnPortStatechanged;
-
+                this.state = ConnectionState.Closed;
+                Console.WriteLine("Connection closed.");
+                this.timer.Stop();
+                this.Duration = this.timer.Elapsed;
+                this.caller.PropertyChanged -= this.OnPortStatechanged;
+                this.receiver.PropertyChanged -= this.OnPortStatechanged;
+                this.callInformation.Duration =this.Duration;
+                ConnectionFinished(this, new CallInfoEventArgs(this.callInformation));
             }
 
             private void OnPortStatechanged(object sender, PropertyChangedEventArgs e)
@@ -65,13 +76,21 @@ namespace TelephoneExchange
                 switch((sender as Port).State)
                 {
                     case PortState.CallAccepted :
-                        //if (sender == receiver) StartConnection();
-                        StartConnection();
+                        if (sender == this.receiver)
+                        {
+                            Console.WriteLine("connection started");
+                            StartConnection();
+                        }
                         break;
 
                     case PortState.Ready :
-                        if (sender == receiver) caller.State = PortState.Ready; 
-                        else receiver.State = PortState.Ready;
+                        if (this.state == ConnectionState.Opened) 
+                        {
+                            CloseConnection();
+                            if (sender == this.receiver) this.caller.State = PortState.Ready;
+                            else this.receiver.State = PortState.Ready;
+                            
+                        }
                         break;
                 }
             }
@@ -83,7 +102,7 @@ namespace TelephoneExchange
 
         private void OnConnectionFinished(object sender, CallInfoEventArgs e)
         {
-            Console.WriteLine("Connection finished:/n Caller : {0}; receiver : {1}; Started at {2}; Duration {2}", e.callInfo.Caller, e.callInfo.Receiver, e.callInfo.StartTime, e.callInfo.Duration); ;
+            Console.WriteLine("Connection summary :\n \t Caller : {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", e.callInfo.Caller, e.callInfo.Receiver, e.callInfo.StartTime, e.callInfo.Duration); ;
             CallsHistory.Add(e.callInfo);
         }
 
@@ -101,7 +120,6 @@ namespace TelephoneExchange
                     Connection con = new Connection(callerPort, receiverPort, this);
                     con.ConnectionFinished += this.OnConnectionFinished;
                     con.DispatchCall();
-                    con.CloseConnection();
                     break;
             }
         }
