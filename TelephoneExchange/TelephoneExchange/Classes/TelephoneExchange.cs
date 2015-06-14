@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Diagnostics;
 using TelephoneExchange.Classes.EventsArgs;
+using TelephoneExchange.Classes;
 
 namespace TelephoneExchange
 {
@@ -102,7 +103,7 @@ namespace TelephoneExchange
 
         private void OnConnectionFinished(object sender, CallInfoEventArgs e)
         {
-            Console.WriteLine("Connection summary :\n \t Caller : {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", e.callInfo.Caller, e.callInfo.Receiver, e.callInfo.StartTime, e.callInfo.Duration); ;
+            //Console.WriteLine("Connection summary :\n \t Caller : {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", e.callInfo.Caller, e.callInfo.Receiver, e.callInfo.StartTime, e.callInfo.Duration); ;
             CallsHistory.Add(e.callInfo);
         }
 
@@ -134,7 +135,35 @@ namespace TelephoneExchange
             PhoneNumbers.Add(port, e.TelephoneNumber);
         }
 
+        public void GenerateSomeFakeCallInfoRecords(int numRecords)
+        {
+            CallInfo callInfo;
+            Random rand = new Random();
+            for (int i = 1; i <= numRecords; i++)
+            {
+                callInfo = new CallInfo();
+                callInfo.Caller = rand.Next(this.Ports.Keys.Min(), this.Ports.Keys.Max());
+                do
+                {
+                    callInfo.Receiver = rand.Next(this.Ports.Keys.Min(), this.Ports.Keys.Max());
+                } while (callInfo.Caller == callInfo.Receiver);
+                callInfo.StartTime = new DateTime(2015, rand.Next(1, 12), rand.Next(1, 27), rand.Next(0, 23), rand.Next(0, 59), rand.Next(0, 59));
+                callInfo.Duration = new TimeSpan(0, rand.Next(25), rand.Next(1, 59));
+                CallsHistory.Add(callInfo);
+            }
 
+            int j = 0;
+            Console.WriteLine("*******************Calls register**********************");
+            foreach (CallInfo c in CallsHistory)
+            {
+                Console.WriteLine("Record # {4} :\n \t Caller: {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", c.Caller, c.Receiver, c.StartTime, c.Duration, ++j);
+            }
+        }
+
+        public IEnumerable<CallInfo> GetCallsHistory(int phoneNumber)
+        {
+            return CallsHistory.Where(ci => ((ci.Caller == phoneNumber) || (ci.Receiver == phoneNumber)));
+        }
     }
 
 }

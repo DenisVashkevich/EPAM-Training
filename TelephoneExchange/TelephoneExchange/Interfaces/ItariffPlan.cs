@@ -8,6 +8,6 @@ namespace TelephoneExchange.Interfaces
 {
     public interface ITariffPlan
     {
-        decimal CalculateCallCost(CallInfo info);
+        double CalculateCallCost(CallInfo info);
     }
 }

@@ -11,9 +11,14 @@ namespace TelephoneExchange
     {
         public EventHandler<NewContractEventArgs> NewContractRegistering;
 
-        public Dictionary<int, ContractHead> Contracts = new Dictionary<int, ContractHead>();
+        private TelephoneExchange ATS;
+        private Dictionary<int, ContractHead> Contracts = new Dictionary<int, ContractHead>();
+
+        public CommunicationCompany(TelephoneExchange ats)
+        {
+            ATS = ats;
+        }
         
-        //public bool AddContract(ContractHead newContract)
         public void AddContract(Subscribers newSubscriber, ContractHead newContract)
         {
             if (NewContractRegistering != null) 
@@ -41,7 +46,23 @@ namespace TelephoneExchange
         public int GenerateNewTelephoneNumber()
         {
             return Contracts.Count + 2700001;
-
         }
+
+        public IEnumerable<DetalizationLine> GetCSubscriberdetalization(int phoneNumber)
+        {
+            Func<CallInfo, double> CallCost = Contracts.FirstOrDefault(c => c.Value.PhoneNumber == phoneNumber).Value.GetCurrentTariffPlan().CalculateCallCost;
+            
+            IEnumerable<CallInfo> CallsHistory = ATS.GetCallsHistory(phoneNumber);
+
+            return CallsHistory.Select(ci =>
+                new DetalizationLine(
+                    ci.StartTime,
+                    ci.Caller == phoneNumber ? ci.Receiver : ci.Caller,
+                    ci.Caller == phoneNumber ? 1 : 2,
+                    ci.Duration, CallCost(ci)
+                    )
+                ).OrderBy(dl => dl.calllDateTime);
+        }
+
     }
 }

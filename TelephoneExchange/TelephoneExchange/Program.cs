@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TelephoneExchange.Classes;
 
 namespace TelephoneExchange
 {
@@ -10,8 +11,9 @@ namespace TelephoneExchange
     {
         static void Main(string[] args)
         {
-            CommunicationCompany DenisTeleCom = new CommunicationCompany();
             TelephoneExchange ATS = new TelephoneExchange();
+            CommunicationCompany DenisTeleCom = new CommunicationCompany(ATS);
+            
 
             DenisTeleCom.NewContractRegistering += ATS.OnNewcontractRegistering;
 
@@ -37,7 +39,18 @@ namespace TelephoneExchange
             #endregion Add some subscribers
 
             Subscriber1.Telephone.CallTo(Subscriber2.Contract.PhoneNumber);
+            ATS.GenerateSomeFakeCallInfoRecords(10);
 
+            
+            int j = 0;
+            IEnumerable<DetalizationLine> detal = DenisTeleCom.GetCSubscriberdetalization(Subscriber1.Contract.PhoneNumber);
+            Console.WriteLine("************Detalization for {0}", Subscriber1.Contract.PhoneNumber);
+            foreach (var c in detal)
+            {
+
+                Console.WriteLine("Record # {5}: Date and Time: {0}\n \t Phone Number: {1}\n \t Code: {2}\n \t Duration: {3}\n \t Cost: {4}", 
+                    c.calllDateTime, c.phoneNumber, c.code, c.duration, c.cost, ++j);
+            }
 
             Console.ReadLine();
         }
