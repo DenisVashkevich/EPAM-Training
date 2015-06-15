@@ -17,6 +17,9 @@ namespace TelephoneExchange
 
         public Action<Terminal> OnIncommingCallAction;
 
+        /// <summary>
+        /// PlugIn terminal to port
+        /// </summary>
         public void PlugInTerminal()
         {
             var p = PlugIn;
@@ -24,6 +27,9 @@ namespace TelephoneExchange
                 p(this, new EventArgs());
         }
 
+        /// <summary>
+        /// Unplug terminal to port
+        /// </summary>
         public void UnplugTerminal()
         {
             var u = Unplug;
@@ -31,6 +37,10 @@ namespace TelephoneExchange
                 u(this, new EventArgs());
         }
 
+        /// <summary>
+        /// Call to other subscriber
+        /// </summary>
+        /// <param name="phoneNumber">Telephone number of other subscriber</param>
         public void CallTo(int phoneNumber)
         {
             
@@ -39,6 +49,9 @@ namespace TelephoneExchange
                 c(this, new CallEventArgs(phoneNumber));
         }
 
+        /// <summary>
+        /// End current call, or drop incomming call
+        /// </summary>
         public void DropCall()
         {
             var d = Drop;
@@ -46,6 +59,9 @@ namespace TelephoneExchange
                 d(this, new EventArgs());
         }
 
+        /// <summary>
+        /// Accept incomming call
+        /// </summary>
         public void AnswerCall()
         {
             var a = Answer;
@@ -53,14 +69,21 @@ namespace TelephoneExchange
                 a(this, new EventArgs());
         }
         
+        /// <summary>
+        /// Executes OnIncammingCallAction
+        /// </summary>
+        /// <param name="sender">Port rised event</param>
+        /// <param name="e">CallEventArgs object</param>
         public void OnIncommingCall(object sender, CallEventArgs e)
         {
-            //AnswerCall();
-            //System.Threading.Thread.Sleep((int)System.TimeSpan.FromSeconds(2).TotalMilliseconds);
-            //DropCall();
             if (OnIncommingCallAction!=null) OnIncommingCallAction(this);
         }
 
+        /// <summary>
+        /// Port listener
+        /// </summary>
+        /// <param name="sender">Port rised event</param>
+        /// <param name="e">PropertyChangedEventArgs object</param>
         public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
         {
             Port myPort = sender as Port;

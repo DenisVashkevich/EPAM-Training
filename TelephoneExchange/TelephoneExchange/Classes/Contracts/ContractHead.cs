@@ -14,6 +14,11 @@ namespace TelephoneExchange
 
         public bool ChangeTariffPlan(ITariffPlan newPlan)
         {
+            if ((DateTime.Today - Plan.Keys.Last()).Days > DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))
+            {
+                Plan.Add(DateTime.Today, newPlan);
+                return true;
+            }
             return false;
         }
 

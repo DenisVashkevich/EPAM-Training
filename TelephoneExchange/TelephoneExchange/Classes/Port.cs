@@ -37,32 +37,32 @@ namespace TelephoneExchange
             }
         }
 
-        //Event rising when subscriber unplug terminal
+        //Event handler for subscriber unplug terminal
         public void OnTerminalUnPluged(object sender, EventArgs e)
         {
             this.State = PortState.TerminalDisconnected;
         }
 
-        //Event rising when subscriber plugIn terminal
+        //Event handler for subscriber plugIn terminal
         public void OnTerminalPlugedIn(object sender, EventArgs e)
         {
             this.State = PortState.Ready;
         }
 
-        //Event rising when subscriber is colling to someone
+        //Event handler for subscriber is colling to someone
         public void OnOutgoingCall(object sender, CallEventArgs e)
         {
             PhoneNumberInfo = e.PhoneNumber;
             this.State = PortState.OutgoingCall;
         }
 
-        //Event rising when subscriber drops call
+        //Event handler for subscriber drops call
         public void OnDropCall(object sender, EventArgs e)
         {
             this.State = PortState.Ready;
         }
 
-        //Event rising when subscriber accepts call
+        //Event handler for subscriber unplug terminal
         public void OnAnswerToCall(object sender, EventArgs e)
         {
             this.State = PortState.CallAccepted;
