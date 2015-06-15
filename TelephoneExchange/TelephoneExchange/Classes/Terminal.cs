@@ -15,6 +15,8 @@ namespace TelephoneExchange
         public event EventHandler Drop;
         public event EventHandler Answer;
 
+        public Action<Terminal> OnIncommingCallAction;
+
         public void PlugInTerminal()
         {
             var p = PlugIn;
@@ -53,9 +55,10 @@ namespace TelephoneExchange
         
         public void OnIncommingCall(object sender, CallEventArgs e)
         {
-            AnswerCall();
-            System.Threading.Thread.Sleep((int)System.TimeSpan.FromSeconds(10).TotalMilliseconds);
-            DropCall();
+            //AnswerCall();
+            //System.Threading.Thread.Sleep((int)System.TimeSpan.FromSeconds(2).TotalMilliseconds);
+            //DropCall();
+            if (OnIncommingCallAction!=null) OnIncommingCallAction(this);
         }
 
         public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)

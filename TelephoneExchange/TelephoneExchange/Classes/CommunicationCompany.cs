@@ -13,7 +13,6 @@ namespace TelephoneExchange
 
         private TelephoneExchange ATS;
         private Dictionary<int, ContractHead> Contracts = new Dictionary<int, ContractHead>();
-
         public CommunicationCompany(TelephoneExchange ats)
         {
             ATS = ats;
@@ -55,7 +54,7 @@ namespace TelephoneExchange
             if (from == till)
             {
                 from = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                till = DateTime.Today;
+                till = DateTime.Now;
             }
             IEnumerable<CallInfo> CallsHistory = ATS.GetCallsHistory(phoneNumber, from, till);
             return CallsHistory.Select(ci =>
@@ -76,7 +75,7 @@ namespace TelephoneExchange
             if (from == till)
             {
                 from = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                till = DateTime.Today;
+                till = DateTime.Now;
             }
             IEnumerable<CallInfo> CallsHistory = ATS.GetCallsHistory(phoneNumber, destPhoneNUmber, from, till);
 

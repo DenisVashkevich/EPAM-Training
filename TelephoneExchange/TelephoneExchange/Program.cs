@@ -38,23 +38,49 @@ namespace TelephoneExchange
             DenisTeleCom.AddContract(Subscriber6, Subscriber6Contract);
             #endregion Add some subscribers
 
+            TestATS test = new TestATS(Subscriber2.Telephone);
+
             Subscriber1.Telephone.CallTo(Subscriber2.Contract.PhoneNumber);
             ATS.GenerateSomeFakeCallInfoRecords(1000);
-
             
             int j = 0;
             IEnumerable<DetalizationRow> detal = DenisTeleCom.GetSubscriberdetalization(Subscriber1.Contract.PhoneNumber);
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("************Detalization for {0}", Subscriber1.Contract.PhoneNumber);
+            Console.WriteLine("{0,-4}{1,-20}{2,-15}{3,-4}{4,-16}{5,4}\n","#", "    Date and Time", " Phone Number", "Code", "   Duration", "Cost");
             foreach (var c in detal)
             {
-
-                Console.WriteLine("Record # {5}: Date and Time: {0}\n \t Phone Number: {1}\n \t Code: {2}\n \t Duration: {3}\n \t Cost: {4}", 
-                    c.calllDateTime, c.phoneNumber, c.code, c.duration, c.cost, ++j);
+                Console.WriteLine("{0,-4}{1,-20}{2,11}{3,8}{4,12}{5,8}",++j, c.calllDateTime, c.phoneNumber, c.code, c.duration, c.cost);
             }
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("*Code : 1 - ougoing call, 2 - Incomming call");
             Console.WriteLine("=========================================");
             Console.WriteLine("Total for selected Period: {0}", detal.Sum(d=>d.cost));
+            Console.WriteLine();
+            Console.WriteLine();
+            Subscriber1.Telephone.CallTo(Subscriber3.Contract.PhoneNumber);
+
             Console.ReadLine();
         }
 
+        public class TestATS
+        {
+            public Terminal terminal;
+
+            public TestATS(Terminal term)
+            {
+                terminal = term;
+                terminal.OnIncommingCallAction = new Action<Terminal>(ChatWithBuddy);
+            }
+
+            public void ChatWithBuddy(Terminal terminal)
+            {
+                Random rnd = new Random();
+                terminal.AnswerCall();
+                System.Threading.Thread.Sleep((int)System.TimeSpan.FromSeconds(rnd.Next(2, 10)).TotalMilliseconds);
+                terminal.DropCall();
+            }
+        }
     }
 }

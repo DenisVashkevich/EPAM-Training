@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Timers;
 using TelephoneExchange.Classes.EventsArgs;
 using TelephoneExchange.Classes;
 
@@ -11,9 +12,12 @@ namespace TelephoneExchange
 {
     public class TelephoneExchange
     {
+        //initializes a connection between two subscribers,
+        //gives information about connection
         private class Connection
         {
-            private enum ConnectionState
+
+            private enum ConnectionState 
             {
                 Initiated,
                 Opened,
@@ -28,7 +32,8 @@ namespace TelephoneExchange
             private TimeSpan Duration;
             private TelephoneExchange ats;
             private CallInfo callInformation = new CallInfo();
-
+            private Timer connectionTimeOut;
+            
             public event EventHandler<CallInfoEventArgs> ConnectionFinished;
 
             public Connection(Port callerPort, Port receiverPort, TelephoneExchange TelEx)
@@ -40,18 +45,40 @@ namespace TelephoneExchange
                 this.receiver.PropertyChanged += this.OnPortStatechanged;
             }
 
+            //Dispatch a call from caller to receiver
             public void DispatchCall()
             {
                 int callerPhoneNumber;
+                connectionTimeOut = new Timer(6000);//Timec counting possible time for acting on incomming call
+                connectionTimeOut.Elapsed += this.OnConnectionTimeOut;
+                connectionTimeOut.Enabled = true;
                 ats.PhoneNumbers.TryGetValue(caller, out callerPhoneNumber);
                 this.receiver.PhoneNumberInfo = callerPhoneNumber;
                 this.callInformation.Caller = callerPhoneNumber;
                 this.callInformation.Receiver = caller.PhoneNumberInfo;
                 Console.WriteLine("Dispathing call from {0} to {1}", callerPhoneNumber, caller.PhoneNumberInfo);
                 this.receiver.State = PortState.IncomingCall;
+                
             }
 
-            public void StartConnection()
+            private void OnConnectionTimeOut(object sender, ElapsedEventArgs e)
+            {
+                if (this.state != ConnectionState.Closed) 
+                {
+                    this.caller.State = PortState.Ready;
+                    this.receiver.State = PortState.Ready;
+                    this.caller.PropertyChanged -= this.OnPortStatechanged;
+                    this.receiver.PropertyChanged -= this.OnPortStatechanged;
+                    this.connectionTimeOut.Elapsed -= this.OnConnectionTimeOut;
+                    this.connectionTimeOut.Enabled = false;
+
+                    this.state = ConnectionState.Closed;
+                    Console.WriteLine("No ansewer.");
+                }
+
+            }
+
+            private void StartConnection()
             {
                 this.state = ConnectionState.Opened;
                 this.timer = Stopwatch.StartNew();
@@ -60,7 +87,7 @@ namespace TelephoneExchange
                 Console.WriteLine("Subscriber {0} is talking whith subscriber {1}", this.callInformation.Caller, this.callInformation.Receiver);
             }
 
-            public void CloseConnection()
+            private void CloseConnection()
             {
                 this.state = ConnectionState.Closed;
                 Console.WriteLine("Connection closed.");
@@ -68,10 +95,12 @@ namespace TelephoneExchange
                 this.Duration = this.timer.Elapsed;
                 this.caller.PropertyChanged -= this.OnPortStatechanged;
                 this.receiver.PropertyChanged -= this.OnPortStatechanged;
-                this.callInformation.Duration =this.Duration;
+                this.callInformation.Duration = new TimeSpan(this.Duration.Hours, this.Duration.Minutes, this.Duration.Seconds);
+                //Notifies ATS that connection is finished and sends connection information
                 ConnectionFinished(this, new CallInfoEventArgs(this.callInformation));
             }
 
+            //Ports state listener
             private void OnPortStatechanged(object sender, PropertyChangedEventArgs e)
             {
                 switch((sender as Port).State)
@@ -79,7 +108,10 @@ namespace TelephoneExchange
                     case PortState.CallAccepted :
                         if (sender == this.receiver)
                         {
+                            this.connectionTimeOut.Elapsed -= this.OnConnectionTimeOut;
+                            this.connectionTimeOut.Enabled = false;
                             Console.WriteLine("connection started");
+                            //Starting a connection when other subscriber accepts call
                             StartConnection();
                         }
                         break;
@@ -87,37 +119,37 @@ namespace TelephoneExchange
                     case PortState.Ready :
                         if (this.state == ConnectionState.Opened) 
                         {
+                            //Closing connection when one of subscribers finishes call
                             CloseConnection();
+                            //reseting port state of second subscriber
                             if (sender == this.receiver) this.caller.State = PortState.Ready;
                             else this.receiver.State = PortState.Ready;
-                            
                         }
                         break;
                 }
             }
         }
 
-        private List<CallInfo> CallsHistory = new List<CallInfo>();
-        private  Dictionary<int, Port> Ports = new Dictionary<int, Port>();
-        private Dictionary<Port, int> PhoneNumbers = new Dictionary<Port, int>();
+        private List<CallInfo> CallsHistory = new List<CallInfo>();  //Information history for past calls
+        private  Dictionary<int, Port> Ports = new Dictionary<int, Port>(); //Dictionary for getting port based on phoneNumber
+        private Dictionary<Port, int> PhoneNumbers = new Dictionary<Port, int>(); // Dictionary fpr getting phoneNUmber based on port
 
+        //Adding a record to Calls History when connection is finished
         private void OnConnectionFinished(object sender, CallInfoEventArgs e)
         {
-            //Console.WriteLine("Connection summary :\n \t Caller : {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", e.callInfo.Caller, e.callInfo.Receiver, e.callInfo.StartTime, e.callInfo.Duration); ;
+            Console.WriteLine("{0}   {1}   {2}   {2}",e.callInfo.Caller, e.callInfo.Receiver,e.callInfo.StartTime,e.callInfo.Duration);
             CallsHistory.Add(e.callInfo);
         }
 
-        public void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
+        //Port state listener 
+        private void OnPortStateChanged(object sender, PropertyChangedEventArgs e)
         {
             Port callerPort = sender as Port;
-            //int callerPhoneNumber; ;
-//            PhoneNumbers.TryGetValue(callerPort, out callerPhoneNumber);
             switch (callerPort.State)
             {
                 case PortState.OutgoingCall :
                     Port receiverPort;
                     Ports.TryGetValue(callerPort.PhoneNumberInfo, out receiverPort);
-                    //Console.WriteLine("subscriber {0} is calling to Subscriber {1}", callerPhoneNumber, callerPort.PhoneNumberInfo);
                     Connection con = new Connection(callerPort, receiverPort, this);
                     con.ConnectionFinished += this.OnConnectionFinished;
                     con.DispatchCall();
@@ -125,9 +157,13 @@ namespace TelephoneExchange
             }
         }
 
+        /// <summary>
+        /// Creates a new port for new terminal
+        /// </summary>
+        /// <param name="sender">Sender object</param>
+        /// <param name="e">NewContractEventArgs</param>
         public void OnNewcontractRegistering(object sender, NewContractEventArgs e)
         {
-            //Console.WriteLine("ATS : {0}", e.TelephoneNumber);
             Port port = new Port();
             port.PropertyChanged += this.OnPortStateChanged;
             e.port = port;
@@ -135,6 +171,11 @@ namespace TelephoneExchange
             PhoneNumbers.Add(port, e.TelephoneNumber);
         }
 
+        /// <summary>
+        /// Generates fake records in Calls History 
+        /// for demonstration mode
+        /// </summary>
+        /// <param name="numRecords">Number of records to generate</param>
         public void GenerateSomeFakeCallInfoRecords(int numRecords)
         {
             CallInfo callInfo;
@@ -152,19 +193,21 @@ namespace TelephoneExchange
                 CallsHistory.Add(callInfo);
             }
 
-            int j = 0;
-            Console.WriteLine("*******************Calls register**********************");
-            foreach (CallInfo c in CallsHistory)
-            {
-                Console.WriteLine("Record # {4} :\n \t Caller: {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", c.Caller, c.Receiver, c.StartTime, c.Duration, ++j);
-            }
+            //int j = 0;
+            //Console.WriteLine("*******************Calls register**********************");
+            //foreach (CallInfo c in CallsHistory)
+            //{
+            //    Console.WriteLine("Record # {4} :\n \t Caller: {0}\n \t Receiver : {1}\n \t Started at {2}\n \t Duration {3}", c.Caller, c.Receiver, c.StartTime, c.Duration, ++j);
+            //}
         }
 
-        //public IEnumerable<CallInfo> GetCallsHistory(int phoneNumber)
-        //{
-        //    return CallsHistory.Where(ci => ((ci.Caller == phoneNumber) || (ci.Receiver == phoneNumber)));
-        //}
-
+        /// <summary>
+        /// Returns calls history for specified subscriber
+        /// </summary>
+        /// <param name="clientPhoneNumber">Telephone number of subscriber</param>
+        /// <param name="from">Start of period for query</param>
+        /// <param name="till">End of period for query</param>
+        /// <returns>IEnumerable Collection of CallInfo records</returns>
         public IEnumerable<CallInfo> GetCallsHistory(int clientPhoneNumber, DateTime from, DateTime till)
         {
             return CallsHistory.Where(ci => 
@@ -174,6 +217,14 @@ namespace TelephoneExchange
                 );
         }
 
+        /// <summary>
+        /// Returns calls history for specified subscriber
+        /// </summary>
+        /// <param name="clientPhoneNumber">Telephone number of subscriber</param>
+        /// <param name="destinationPhoneNumber">Telephone number of call receiver</param>
+        /// <param name="from">Start of period for query</param>
+        /// <param name="till">End of period for query</param>
+        /// <returns>IEnumerable Collection of CallInfo records</returns>
         public IEnumerable<CallInfo> GetCallsHistory(int clientPhoneNumber, int destinationPhoneNumber, DateTime from, DateTime till)
         {
             return CallsHistory.Where(ci =>

@@ -24,7 +24,8 @@ namespace TelephoneExchange
                 
             }
         }
-        public int PhoneNumberInfo { get; set; }
+
+        public int PhoneNumberInfo { get; set; } // Information about PhoneNumber(incomming call / destination customer) 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,32 +37,32 @@ namespace TelephoneExchange
             }
         }
 
+        //Event rising when subscriber unplug terminal
         public void OnTerminalUnPluged(object sender, EventArgs e)
         {
             this.State = PortState.TerminalDisconnected;
         }
 
+        //Event rising when subscriber plugIn terminal
         public void OnTerminalPlugedIn(object sender, EventArgs e)
         {
             this.State = PortState.Ready;
         }
 
+        //Event rising when subscriber is colling to someone
         public void OnOutgoingCall(object sender, CallEventArgs e)
         {
             PhoneNumberInfo = e.PhoneNumber;
             this.State = PortState.OutgoingCall;
         }
 
-        //public void OnIncommingCall(object sender, CallEventArgs e)
-        //{
-
-        //}
-
+        //Event rising when subscriber drops call
         public void OnDropCall(object sender, EventArgs e)
         {
             this.State = PortState.Ready;
         }
 
+        //Event rising when subscriber accepts call
         public void OnAnswerToCall(object sender, EventArgs e)
         {
             this.State = PortState.CallAccepted;
