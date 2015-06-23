@@ -1,4 +1,10 @@
-﻿namespace DbAutoActService
+﻿using System.IO;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Linq;
+using System;
+
+namespace DbAutoActService
 {
     partial class DbAutoActualizationService
     {
@@ -28,10 +34,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this.FileSystemWatcher = new System.IO.FileSystemWatcher();
+            ((System.ComponentModel.ISupportInitialize)(this.FileSystemWatcher)).BeginInit();
+            // 
+            // FileSystemWatcher
+            // 
+            this.FileSystemWatcher.EnableRaisingEvents = true;
+            this.FileSystemWatcher.Filter = "*.csv";
+            this.FileSystemWatcher.IncludeSubdirectories = true;
+            this.FileSystemWatcher.NotifyFilter = ((System.IO.NotifyFilters)((System.IO.NotifyFilters.FileName | System.IO.NotifyFilters.DirectoryName)));
+            // 
+            // DbAutoActualizationService
+            // 
+            this.ServiceName = "DbAutoActualizationService";
+            ((System.ComponentModel.ISupportInitialize)(this.FileSystemWatcher)).EndInit();
+
         }
 
         #endregion
+
+        private System.IO.FileSystemWatcher FileSystemWatcher;
+
     }
 }

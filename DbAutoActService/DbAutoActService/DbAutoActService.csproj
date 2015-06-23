@@ -33,7 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,12 +45,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CsvParser.cs" />
+    <Compile Include="DataParser.cs" />
+    <Compile Include="DbAutoActServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DbAutoActServiceInstaller.Designer.cs">
+      <DependentUpon>DbAutoActServiceInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="DbAutoActualizationService.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DbAutoActualizationService.Designer.cs">
       <DependentUpon>DbAutoActualizationService.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportedDataRow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,6 +67,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DbAutoActServiceInstaller.resx">
+      <DependentUpon>DbAutoActServiceInstaller.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DbAutoActualizationService.resx">
       <DependentUpon>DbAutoActualizationService.cs</DependentUpon>
     </EmbeddedResource>
