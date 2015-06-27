@@ -4,11 +4,95 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="DataModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="ClientSet" EntityType="DataModel.Store.ClientSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ManagerSet" EntityType="DataModel.Store.ManagerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GoodsSet" EntityType="DataModel.Store.GoodsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalesSet" EntityType="DataModel.Store.SalesSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ManagerSales" Association="DataModel.Store.ManagerSales">
+      <End Role="Manager" EntitySet="ManagerSet" />
+      <End Role="Sales" EntitySet="SalesSet" />
+    </AssociationSet>
+    <AssociationSet Name="ClientSales" Association="DataModel.Store.ClientSales">
+      <End Role="Client" EntitySet="ClientSet" />
+      <End Role="Sales" EntitySet="SalesSet" />
+    </AssociationSet>
+    <AssociationSet Name="GoodsSales" Association="DataModel.Store.GoodsSales">
+      <End Role="Goods" EntitySet="GoodsSet" />
+      <End Role="Sales" EntitySet="SalesSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ClientSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ManagerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SecondName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GoodsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesSet">
+    <Key>
+      <PropertyRef Name="ManagerId" />
+      <PropertyRef Name="ClientId" />
+      <PropertyRef Name="GoodsId" />
+    </Key>
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="ManagerId" Type="int" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="GoodsId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ManagerSales">
+    <End Role="Manager" Type="DataModel.Store.ManagerSet" Multiplicity="1" />
+    <End Role="Sales" Type="DataModel.Store.SalesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="ManagerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClientSales">
+    <End Role="Client" Type="DataModel.Store.ClientSet" Multiplicity="1" />
+    <End Role="Sales" Type="DataModel.Store.SalesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GoodsSales">
+    <End Role="Goods" Type="DataModel.Store.GoodsSet" Multiplicity="1" />
+    <End Role="Sales" Type="DataModel.Store.SalesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -109,13 +193,45 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="DataModel" />
-        <Alias Key="Target" Value="DataModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="DataModelContainer" StorageEntityContainer="DataModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="ClientSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Client)">
+        <MappingFragment StoreEntitySet="ClientSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManagerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Manager)">
+        <MappingFragment StoreEntitySet="ManagerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoodsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Goods)">
+        <MappingFragment StoreEntitySet="GoodsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Sales)">
+        <MappingFragment StoreEntitySet="SalesSet">
+          <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -129,6 +245,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
