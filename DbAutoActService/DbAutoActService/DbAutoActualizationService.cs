@@ -58,7 +58,7 @@ namespace DbAutoActService
 
         private void FileSystemWatcher_Created(object sender, System.IO.FileSystemEventArgs e)
         {
-            DAL.IRepository<DAL.Models.Manager> managersRepository = new DAL.ManagerRepository();
+            DAL.IRepository<DAL.Models.Client> clientRepository = new DAL.ClientRepository();
 
             using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
             {
@@ -68,10 +68,18 @@ namespace DbAutoActService
             FileStream stream = new FileStream(e.FullPath, FileMode.Open);
             CsvParser csvParser = new CsvParser(e.FullPath, ConfigurationManager.AppSettings["Delimiter"].ToCharArray());
 
-            var rows = csvParser.GetRecords().Select(r => new ImportedDataRow() { date = DateTime.Parse(r[0]), client = r[1], goods = r[2], total = double.Parse(r[3]) });
+            var rows = csvParser.GetRecords().Select(r => new ImportedDataRow() { Date = DateTime.Parse(r[0]), Client = r[1], Goods = r[2], Total = double.Parse(r[3]) });
 
-            managersRepository.Add()
+            foreach (var r in rows)
+            {
+                var c = clientRepository.Items.FirstOrDefault(x => x.Name == r.Client);
+                if (c==null)
+                {
+                    clientRepository.Add(new DAL.Models.Client() { Name = r.Client });
+                    clientRepository.SaveChanges();
+                }
 
+            }
 
         }
 

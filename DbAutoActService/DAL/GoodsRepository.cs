@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace DAL
 {
-    class GoodsRepository : IRepository<DAL.Models.Goods>
+    public class GoodsRepository : IRepository<DAL.Models.Goods>
     {
         private SalesDataModel.DataModelContainer context = new SalesDataModel.DataModelContainer();
 

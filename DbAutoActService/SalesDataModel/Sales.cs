@@ -18,6 +18,7 @@ namespace SalesDataModel
         public int ManagerId { get; set; }
         public int ClientId { get; set; }
         public int GoodsId { get; set; }
+        public double Cost { get; set; }
     
         public virtual Manager Manager { get; set; }
         public virtual Client Client { get; set; }

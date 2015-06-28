@@ -9,8 +9,9 @@ namespace DAL.Models
     public class Sales
     {
         public DateTime Date { get; set; }
-        public virtual Manager Manager { get; set; }
-        public virtual Client ClientId { get; set; }
+        public Manager Manager { get; set; }
+        public Client Client { get; set; }
+        public Goods Goodds { get; set; } 
         public double Cost { get; set; }
     }
 }

@@ -8,9 +8,9 @@ namespace DbAutoActService
 {
     public class ImportedDataRow
     {
-        public DateTime date;
-        public string client;
-        public string goods;
-        public double total;
+        public DateTime Date { get; set; }
+        public string Client { get; set; }
+        public string Goods { get; set; }
+        public double Total { get; set; }
     }
 }

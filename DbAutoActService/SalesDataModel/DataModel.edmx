@@ -50,11 +50,13 @@
       <PropertyRef Name="ManagerId" />
       <PropertyRef Name="ClientId" />
       <PropertyRef Name="GoodsId" />
+      <PropertyRef Name="Date" />
     </Key>
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="ManagerId" Type="int" Nullable="false" />
     <Property Name="ClientId" Type="int" Nullable="false" />
     <Property Name="GoodsId" Type="int" Nullable="false" />
+    <Property Name="Cost" Type="float" Nullable="false" />
   </EntityType>
   <Association Name="ManagerSales">
     <End Role="Manager" Type="DataModel.Store.ManagerSet" Multiplicity="1" />
@@ -144,6 +146,7 @@
             <PropertyRef Name="ManagerId" />
             <PropertyRef Name="ClientId" />
             <PropertyRef Name="GoodsId" />
+            <PropertyRef Name="Date" />
           </Key>
           <Property Name="Date" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Manager" Relationship="DataModel.ManagerSales" FromRole="Sales" ToRole="Manager" />
@@ -152,6 +155,7 @@
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Goods" Relationship="DataModel.GoodsSales" FromRole="Sales" ToRole="Goods" />
           <Property Name="GoodsId" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Double" Nullable="false" />
         </EntityType>
         <Association Name="ManagerSales">
           <End Type="DataModel.Manager" Role="Manager" Multiplicity="1" />
@@ -227,6 +231,7 @@
           <ScalarProperty Name="ClientId" ColumnName="ClientId" />
           <ScalarProperty Name="GoodsId" ColumnName="GoodsId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
