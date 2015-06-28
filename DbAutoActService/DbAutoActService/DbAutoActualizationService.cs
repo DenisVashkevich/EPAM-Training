@@ -23,10 +23,10 @@ namespace DbAutoActService
         {
             FileSystemWatcher.Path = ConfigurationManager.AppSettings["WatchPath"];
 
-            this.FileSystemWatcher.Changed += this.FileSystemWatcher_Changed;
+            //this.FileSystemWatcher.Changed += this.FileSystemWatcher_Changed;
             this.FileSystemWatcher.Created += this.FileSystemWatcher_Created;
-            this.FileSystemWatcher.Deleted += this.FileSystemWatcher_Deleted;
-            this.FileSystemWatcher.Renamed += this.FileSystemWatcher_Renamed;
+            //this.FileSystemWatcher.Deleted += this.FileSystemWatcher_Deleted;
+            //this.FileSystemWatcher.Renamed += this.FileSystemWatcher_Renamed;
 
             using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
             {
@@ -37,10 +37,10 @@ namespace DbAutoActService
 
         protected override void OnStop()
         {
-            this.FileSystemWatcher.Changed -= this.FileSystemWatcher_Changed;
+            //this.FileSystemWatcher.Changed -= this.FileSystemWatcher_Changed;
             this.FileSystemWatcher.Created -= this.FileSystemWatcher_Created;
-            this.FileSystemWatcher.Deleted -= this.FileSystemWatcher_Deleted;
-            this.FileSystemWatcher.Renamed -= this.FileSystemWatcher_Renamed;
+            //this.FileSystemWatcher.Deleted -= this.FileSystemWatcher_Deleted;
+            //this.FileSystemWatcher.Renamed -= this.FileSystemWatcher_Renamed;
 
             using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
             {
@@ -48,16 +48,18 @@ namespace DbAutoActService
             }
         }
 
-        private void FileSystemWatcher_Changed(object sender, System.IO.FileSystemEventArgs e)
-        {
-            using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
-            {
-                sw.WriteLine("File {0} changed at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
-            }
-        }
+        //private void FileSystemWatcher_Changed(object sender, System.IO.FileSystemEventArgs e)
+        //{
+        //    using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
+        //    {
+        //        sw.WriteLine("File {0} changed at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
+        //    }
+        //}
 
         private void FileSystemWatcher_Created(object sender, System.IO.FileSystemEventArgs e)
         {
+            DAL.IRepository<DAL.Models.Manager> managersRepository = new DAL.ManagerRepository();
+
             using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
             {
                 sw.WriteLine("File {0} Created at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
@@ -66,29 +68,30 @@ namespace DbAutoActService
             FileStream stream = new FileStream(e.FullPath, FileMode.Open);
             CsvParser csvParser = new CsvParser(e.FullPath, ConfigurationManager.AppSettings["Delimiter"].ToCharArray());
 
-
             var rows = csvParser.GetRecords().Select(r => new ImportedDataRow() { date = DateTime.Parse(r[0]), client = r[1], goods = r[2], total = double.Parse(r[3]) });
 
+            managersRepository.Add()
+
 
         }
 
-        private void FileSystemWatcher_Deleted(object sender, System.IO.FileSystemEventArgs e)
-        {
-            using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
-            {
-                sw.WriteLine("File {0} deleted at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
-            }
+        //private void FileSystemWatcher_Deleted(object sender, System.IO.FileSystemEventArgs e)
+        //{
+        //    using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
+        //    {
+        //        sw.WriteLine("File {0} deleted at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
+        //    }
 
-        }
+        //}
 
-        private void FileSystemWatcher_Renamed(object sender, System.IO.RenamedEventArgs e)
-        {
-            using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
-            {
-                sw.WriteLine("File {0} Renamed at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
-            }
+        //private void FileSystemWatcher_Renamed(object sender, System.IO.RenamedEventArgs e)
+        //{
+        //    using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
+        //    {
+        //        sw.WriteLine("File {0} Renamed at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
+        //    }
 
-        }
+        //}
 
     }
 }

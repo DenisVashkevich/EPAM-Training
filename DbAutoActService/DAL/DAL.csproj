@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
+    <Compile Include="GoodsRepository.cs" />
+    <Compile Include="ClientRepository.cs" />
+    <Compile Include="ManagerRepository.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\goods.cs" />
     <Compile Include="Models\Manager.cs" />
@@ -56,6 +59,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SalesDataModel\SalesDataModel.csproj">
+      <Project>{943cfdfc-4a00-45cc-a822-0ab3ab107a88}</Project>
+      <Name>SalesDataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
