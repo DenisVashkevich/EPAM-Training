@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44AFFC0E-EEE6-40DE-AE34-0E025E794A09}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{2D2858F7-AD8E-4737-9396-47087F7DD2CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DbAutoActService</RootNamespace>
-    <AssemblyName>DbAutoActService</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>BL</RootNamespace>
+    <AssemblyName>BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,49 +31,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbAutoActServiceInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DbAutoActServiceInstaller.Designer.cs">
-      <DependentUpon>DbAutoActServiceInstaller.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DbAutoActualizationService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DbAutoActualizationService.Designer.cs">
-      <DependentUpon>DbAutoActualizationService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="DataParser\CsvParser.cs" />
+    <Compile Include="DataParser\DataParser.cs" />
+    <Compile Include="DataProcessor.cs" />
+    <Compile Include="ImportedDataRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DbAutoActServiceInstaller.resx">
-      <DependentUpon>DbAutoActServiceInstaller.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DbAutoActualizationService.resx">
-      <DependentUpon>DbAutoActualizationService.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj">
-      <Project>{2d2858f7-ad8e-4737-9396-47087f7dd2cd}</Project>
-      <Name>BL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{bf9df141-b228-4055-8d7c-89ddeb1a2772}</Project>
       <Name>DAL</Name>

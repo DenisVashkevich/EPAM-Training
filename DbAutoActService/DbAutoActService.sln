@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesDataModel", "SalesData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoActApp", "AutoActApp\AutoActApp.csproj", "{5FCB92D4-C32E-4AD5-9207-A83CEF8C21C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{2D2858F7-AD8E-4737-9396-47087F7DD2CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5FCB92D4-C32E-4AD5-9207-A83CEF8C21C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FCB92D4-C32E-4AD5-9207-A83CEF8C21C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FCB92D4-C32E-4AD5-9207-A83CEF8C21C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D2858F7-AD8E-4737-9396-47087F7DD2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D2858F7-AD8E-4737-9396-47087F7DD2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D2858F7-AD8E-4737-9396-47087F7DD2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D2858F7-AD8E-4737-9396-47087F7DD2CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

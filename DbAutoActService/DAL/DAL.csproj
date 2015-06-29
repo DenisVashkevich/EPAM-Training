@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
-    <Compile Include="GoodsRepository.cs" />
-    <Compile Include="ClientRepository.cs" />
-    <Compile Include="SalesRepository.cs" />
-    <Compile Include="ManagerRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\GoodsRepository.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
+    <Compile Include="Repositories\SalesRepository.cs" />
+    <Compile Include="Repositories\ManagerRepository.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\goods.cs" />
     <Compile Include="Models\Manager.cs" />

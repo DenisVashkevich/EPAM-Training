@@ -58,17 +58,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{bf9df141-b228-4055-8d7c-89ddeb1a2772}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DbAutoActService\DbAutoActService.csproj">
-      <Project>{44affc0e-eee6-40de-ae34-0e025e794a09}</Project>
-      <Name>DbAutoActService</Name>
-    </ProjectReference>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <ProjectReference Include="..\BL\BL.csproj">
+      <Project>{2d2858f7-ad8e-4737-9396-47087f7dd2cd}</Project>
+      <Name>BL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
