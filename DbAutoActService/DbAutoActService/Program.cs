@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections;
 using System.Reflection;
+using System.Configuration.Install;
 
 namespace DbAutoActService
 {

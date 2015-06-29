@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
 
-namespace DbAutoActService
+namespace BL
 {
     public abstract class DataParser
     {

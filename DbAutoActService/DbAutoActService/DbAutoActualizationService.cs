@@ -14,6 +14,8 @@ namespace DbAutoActService
 {
     public partial class DbAutoActualizationService : ServiceBase
     {
+        private BL.DataProcessor dataProcessor;
+
         public DbAutoActualizationService()
         {
             InitializeComponent();
@@ -21,9 +23,11 @@ namespace DbAutoActService
 
         protected override void OnStart(string[] args)
         {
+            dataProcessor = new BL.DataProcessor(ConfigurationManager.AppSettings["Delimiter"].ToCharArray());
             FileSystemWatcher.Path = ConfigurationManager.AppSettings["WatchPath"];
 
             this.FileSystemWatcher.Created += this.FileSystemWatcher_Created;
+
             using (StreamWriter sw = new StreamWriter(new FileStream(ConfigurationManager.AppSettings["LogPath"], FileMode.Append)))
             {
                 sw.WriteLine("DbAutoActualizationService started at "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"));
@@ -48,7 +52,7 @@ namespace DbAutoActService
                 sw.WriteLine("File {0} Created at " + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"), e.Name);
             }
 
-
+            dataProcessor.StartProcessing(e.FullPath);
 
         }
     }
