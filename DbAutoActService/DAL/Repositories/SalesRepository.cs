@@ -65,7 +65,14 @@ namespace DAL
 
         public void SaveChanges()
         {
-            this.context.SaveChanges();
+            try
+            {
+                this.context.SaveChanges();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         public int Count

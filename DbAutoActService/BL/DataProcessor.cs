@@ -34,7 +34,8 @@ namespace BL
             DAL.IRepository<DAL.Models.Sales> salesRepository = new DAL.SalesRepository();
 
             var managerSecondName = Path.GetFileName((string)filePath).Split(new char[] { '_' })[0];
-            var manager = managerRepository.Items.FirstOrDefault(x => x.SecondName == managerSecondName);
+
+            var manager = managerRepository.Items.FirstOrDefault(x => x.SecondName.ToLower() == managerSecondName.Trim().ToLower());
             if (manager == null)
             {
                 return;
@@ -46,8 +47,8 @@ namespace BL
             {
                 lock (syncObj)
                 {
-                    var c = clientRepository.Items.FirstOrDefault(x => x.Name == r.Client);
-                    var g = goodsRepository.Items.FirstOrDefault(x => x.Name == r.Goods);
+                    var c = clientRepository.Items.FirstOrDefault(x => x.Name.ToLower() == r.Client.Trim().ToLower());
+                    var g = goodsRepository.Items.FirstOrDefault(x => x.Name.ToLower() == r.Goods.Trim().ToLower());
                     if (c == null)
                     {
                         clientRepository.Add(new DAL.Models.Client() { Name = r.Client });
