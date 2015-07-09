@@ -103,7 +103,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SalesSets" Relationship="Self.FK_ClientSales" FromRole="ClientSet" ToRole="SalesSet" />
+          <NavigationProperty Name="SalesSet" Relationship="Self.FK_ClientSales" FromRole="ClientSet" ToRole="SalesSet" />
         </EntityType>
         <EntityType Name="GoodsSet">
           <Key>
@@ -111,7 +111,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SalesSets" Relationship="Self.FK_GoodsSales" FromRole="GoodsSet" ToRole="SalesSet" />
+          <NavigationProperty Name="SalesSet" Relationship="Self.FK_GoodsSales" FromRole="GoodsSet" ToRole="SalesSet" />
         </EntityType>
         <EntityType Name="ManagerSet">
           <Key>
@@ -120,7 +120,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SecondName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SalesSets" Relationship="Self.FK_ManagerSales" FromRole="ManagerSet" ToRole="SalesSet" />
+          <NavigationProperty Name="SalesSet" Relationship="Self.FK_ManagerSales" FromRole="ManagerSet" ToRole="SalesSet" />
         </EntityType>
         <EntityType Name="SalesSet">
           <Key>
@@ -173,21 +173,21 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SalesEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ClientSets" EntityType="Self.ClientSet" />
-          <EntitySet Name="GoodsSets" EntityType="Self.GoodsSet" />
-          <EntitySet Name="ManagerSets" EntityType="Self.ManagerSet" />
-          <EntitySet Name="SalesSets" EntityType="Self.SalesSet" />
+          <EntitySet Name="ClientSet" EntityType="Self.ClientSet" />
+          <EntitySet Name="GoodsSet" EntityType="Self.GoodsSet" />
+          <EntitySet Name="ManagerSet" EntityType="Self.ManagerSet" />
+          <EntitySet Name="SalesSet" EntityType="Self.SalesSet" />
           <AssociationSet Name="FK_ClientSales" Association="Self.FK_ClientSales">
-            <End Role="ClientSet" EntitySet="ClientSets" />
-            <End Role="SalesSet" EntitySet="SalesSets" />
+            <End Role="ClientSet" EntitySet="ClientSet" />
+            <End Role="SalesSet" EntitySet="SalesSet" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsSales" Association="Self.FK_GoodsSales">
-            <End Role="GoodsSet" EntitySet="GoodsSets" />
-            <End Role="SalesSet" EntitySet="SalesSets" />
+            <End Role="GoodsSet" EntitySet="GoodsSet" />
+            <End Role="SalesSet" EntitySet="SalesSet" />
           </AssociationSet>
           <AssociationSet Name="FK_ManagerSales" Association="Self.FK_ManagerSales">
-            <End Role="ManagerSet" EntitySet="ManagerSets" />
-            <End Role="SalesSet" EntitySet="SalesSets" />
+            <End Role="ManagerSet" EntitySet="ManagerSet" />
+            <End Role="SalesSet" EntitySet="SalesSet" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -196,7 +196,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SalesModelStoreContainer" CdmEntityContainer="SalesEntities">
-          <EntitySetMapping Name="ClientSets">
+          <EntitySetMapping Name="ClientSet">
             <EntityTypeMapping TypeName="SalesModel.ClientSet">
               <MappingFragment StoreEntitySet="ClientSet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -204,7 +204,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GoodsSets">
+          <EntitySetMapping Name="GoodsSet">
             <EntityTypeMapping TypeName="SalesModel.GoodsSet">
               <MappingFragment StoreEntitySet="GoodsSet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -212,7 +212,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ManagerSets">
+          <EntitySetMapping Name="ManagerSet">
             <EntityTypeMapping TypeName="SalesModel.ManagerSet">
               <MappingFragment StoreEntitySet="ManagerSet">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -221,7 +221,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SalesSets">
+          <EntitySetMapping Name="SalesSet">
             <EntityTypeMapping TypeName="SalesModel.SalesSet">
               <MappingFragment StoreEntitySet="SalesSet">
                 <ScalarProperty Name="Id" ColumnName="Id" />

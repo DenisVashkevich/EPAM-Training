@@ -16,12 +16,12 @@ namespace DatabaseModel
     {
         public GoodsSet()
         {
-            this.SalesSets = new HashSet<SalesSet>();
+            this.SalesSet = new HashSet<SalesSet>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<SalesSet> SalesSets { get; set; }
+        public virtual ICollection<SalesSet> SalesSet { get; set; }
     }
 }

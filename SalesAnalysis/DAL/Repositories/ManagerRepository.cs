@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DatabaseModel;
 
 namespace DAL
 {
-    public class ManagerRepository : IRepository<DAL.Models.Manager>
+    public class ManagerRepository : IRepository<Models.Manager>
     {
-        private SalesDataModel.DataModelContainer context = new SalesDataModel.DataModelContainer();
+        private SalesEntities context = new SalesEntities();
 
-        private  SalesDataModel.Manager ToEntity(DAL.Models.Manager source)
+        private  DatabaseModel.ManagerSet ToEntity(DAL.Models.Manager source)
         {
-            return new SalesDataModel.Manager() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
+            return new DatabaseModel.ManagerSet() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
         }
 
-        private DAL.Models.Manager ToObject(SalesDataModel.Manager source)
+        private Models.Manager ToObject(DatabaseModel.ManagerSet source)
         {
-            return new DAL.Models.Manager() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
+            return new Models.Manager() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
         }
 
         public void Add(Models.Manager item)
@@ -35,7 +36,8 @@ namespace DAL
 
         public void Update(Models.Manager item)
         {
-            throw new NotImplementedException();
+            var e = this.ToEntity(item);
+            context.Entry(e).State = EntityState.Modified;
         }
 
         public IEnumerable<Models.Manager> Items

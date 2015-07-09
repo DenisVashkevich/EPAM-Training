@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DatabaseModel;
 
 namespace DAL
 {
-    public class GoodsRepository : IRepository<DAL.Models.Goods>
+    public class GoodsRepository : IRepository<Models.Goods>
     {
-        private SalesDataModel.DataModelContainer context = new SalesDataModel.DataModelContainer();
+        private SalesEntities context = new SalesEntities();
 
-        private SalesDataModel.Goods ToEntity(DAL.Models.Goods source)
+        private DatabaseModel.GoodsSet ToEntity(DAL.Models.Goods source)
         {
-            return new SalesDataModel.Goods() { Id = source.Id, Name = source.Name };
+            return new DatabaseModel.GoodsSet() { Id = source.Id, Name = source.Name };
         }
 
-        private DAL.Models.Goods ToObject(SalesDataModel.Goods source)
+        private Models.Goods ToObject(DatabaseModel.GoodsSet source)
         {
-            return new DAL.Models.Goods() { Id = source.Id, Name = source.Name };
+            return new Models.Goods() { Id = source.Id, Name = source.Name };
         }
 
         public void Add(Models.Goods item)

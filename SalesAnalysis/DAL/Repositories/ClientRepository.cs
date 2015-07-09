@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DatabaseModel;
 
 namespace DAL
 {
     public class ClientRepository : IRepository<DAL.Models.Client>
     {
-        private SalesDataModel.DataModelContainer context = new SalesDataModel.DataModelContainer();
+        private SalesEntities context = new SalesEntities();
 
-        private SalesDataModel.Client ToEntity(DAL.Models.Client source)
+        private DatabaseModel.ClientSet ToEntity(Models.Client source)
         {
-            return new SalesDataModel.Client() { Id = source.Id, Name = source.Name };
+            return new DatabaseModel.ClientSet() { Id = source.Id, Name = source.Name };
         }
 
-        private DAL.Models.Client ToObject(SalesDataModel.Client source)
+        private Models.Client ToObject(DatabaseModel.ClientSet source)
         {
-            return new DAL.Models.Client() { Id = source.Id, Name = source.Name };
+            return new Models.Client() { Id = source.Id, Name = source.Name };
         }
 
         public void Add(Models.Client item)

@@ -8,6 +8,7 @@ namespace DAL.Models
 {
     public class Sales
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public Manager Manager { get; set; }
         public Client Client { get; set; }

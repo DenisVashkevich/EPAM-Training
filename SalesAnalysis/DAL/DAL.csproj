@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DAL</RootNamespace>
     <AssemblyName>DAL</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,11 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\AbstractRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\GoodsRepository.cs" />
     <Compile Include="Repositories\ClientRepository.cs" />
-    <Compile Include="Repositories\SalesRepository.cs" />
     <Compile Include="Repositories\ManagerRepository.cs" />
+    <Compile Include="Repositories\SalesRepository.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\goods.cs" />
     <Compile Include="Models\Manager.cs" />
@@ -62,9 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SalesDataModel\SalesDataModel.csproj">
-      <Project>{943cfdfc-4a00-45cc-a822-0ab3ab107a88}</Project>
-      <Name>SalesDataModel</Name>
+    <ProjectReference Include="..\DatabaseModel\DatabaseModel.csproj">
+      <Project>{75b00886-4881-4108-8687-308fe09211f4}</Project>
+      <Name>DatabaseModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

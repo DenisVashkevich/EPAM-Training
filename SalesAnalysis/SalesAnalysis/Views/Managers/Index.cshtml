@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DatabaseModel.ManagerSet>
+﻿@model IEnumerable<DAL.Models.Manager>
 
 @{
     ViewBag.Title = "Index";
@@ -6,9 +6,9 @@
 
 <h2>Index</h2>
 
-<p>
-    @*@Html.ActionLink("Create New", "Create")*@
-</p>
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.SecondName)
         </td>
         @if(HttpContext.Current.User.IsInRole("admin"))
-        { 
+        {
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
@@ -40,7 +40,7 @@
 }
 
 </table>
-@if(HttpContext.Current.User.IsInRole("admin"))
+@if (HttpContext.Current.User.IsInRole("admin"))
 {
-    <p><a class="btn btn-default" href=@Url.Action("Create", "ManagerSets")>Add Manager &raquo;</a></p>
+    <p><a class="btn btn-default" href=@Url.Action("Create", "Managers")>Add Manager &raquo;</a></p>
 }

@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using DatabaseModel;
 
 namespace DAL
 {
-    public class SalesRepository : IRepository<DAL.Models.Sales>
+    public class SalesRepository : IRepository<Models.Sales>
     {
-        private SalesDataModel.DataModelContainer context = new SalesDataModel.DataModelContainer();
+        private SalesEntities context = new SalesEntities();
 
-        private SalesDataModel.Sales ToEntity(DAL.Models.Sales source)
+        private DatabaseModel.SalesSet ToEntity(Models.Sales source)
         {
-            return new SalesDataModel.Sales()
+            return new DatabaseModel.SalesSet()
             {
                 Date = source.Date,
                 ManagerId = source.Manager.Id,
@@ -23,14 +24,14 @@ namespace DAL
             };
         }
 
-        private DAL.Models.Sales ToObject(SalesDataModel.Sales source)
+        private Models.Sales ToObject(DatabaseModel.SalesSet source)
         {
-            return new DAL.Models.Sales()
+            return new Models.Sales()
             {
                 Date = source.Date,
-                Manager = new DAL.Models.Manager() { Id = source.Manager.Id, FirstName = source.Manager.FirstName, SecondName = source.Manager.SecondName },
-                Client = new DAL.Models.Client() { Id = source.Client.Id, Name = source.Client.Name },
-                Goodds = new DAL.Models.Goods() { Id = source.Goods.Id, Name = source.Goods.Name },
+                Manager = new Models.Manager() { Id = source.ManagerSet.Id, FirstName = source.ManagerSet.FirstName, SecondName = source.ManagerSet.SecondName },
+                Client = new Models.Client() { Id = source.ClientSet.Id, Name = source.ClientSet.Name },
+                Goodds = new Models.Goods() { Id = source.GoodsSet.Id, Name = source.GoodsSet.Name },
                 Cost = source.Cost
             };
         }

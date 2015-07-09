@@ -25,9 +25,9 @@ namespace DatabaseModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ClientSet> ClientSets { get; set; }
-        public virtual DbSet<GoodsSet> GoodsSets { get; set; }
-        public virtual DbSet<ManagerSet> ManagerSets { get; set; }
-        public virtual DbSet<SalesSet> SalesSets { get; set; }
+        public virtual DbSet<ClientSet> ClientSet { get; set; }
+        public virtual DbSet<GoodsSet> GoodsSet { get; set; }
+        public virtual DbSet<ManagerSet> ManagerSet { get; set; }
+        public virtual DbSet<SalesSet> SalesSet { get; set; }
     }
 }
