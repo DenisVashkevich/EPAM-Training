@@ -1,0 +1,110 @@
+﻿@using SalesAnalysis.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using(Html.BeginForm("Index", "Sales", FormMethod.Post, new {id = "SalesForm"}))
+{ 
+<fieldset>
+    <legend>Sales filtered</legend>
+    <table class="table">
+        <tr>
+            <th>
+                <text>Manager</text>
+            </th>
+            <th>
+                <text>Date From</text>
+            </th>
+            <th>
+                <text>Date To</text>
+            </th>
+
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DropDownList("ManagerId", (SelectList)ViewBag.ManagersList, "All managers")
+            </td>
+            <td>
+                <input type="text" id="datefrom" class="datepicker">
+            </td>
+            <td>
+                <input type="text" id="dateto" class="datepicker">
+            </td>
+
+        </tr>
+
+
+    </table>
+</fieldset>
+}
+
+@{Html.RenderPartial("SalesFiltered");}
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+    $(function () {
+        $("#datefrom").datepicker({
+            dateFormat: "dd/mm/yy",
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#dateto").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#dateto").datepicker({
+            dateFormat: "dd/mm/yy",
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#datefrom").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    });
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $("#ManagerId").change(function ()
+        {
+            //var managerid = $('#ManagerId : selected').val();
+            alert($('#ManagerId : selected').val());
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Content("/Sales/SalesFiltered/")",
+                data: {
+                    Id : managerid  //Data need to pass as parameter                       
+                },
+                dataType: 'html', //dataType - html
+                success: function (data) {
+                    //Create a Div around the Partial View and fill the result
+                    $('#SalesFiltered').html(data);
+                }
+            }); 
+        });
+
+        @*$("#ManagerId").change(function () {
+            alert($('#ManagerId : selected').val());
+            $.ajax({
+                url: '@Url.Action("SalesFiltered", "Sales")',
+                data: { id: $(this).val() /* add other additional parameters */ },
+                cache: false,
+                type: "POST",
+                dataType: "html",
+                success: function (data) {
+                    SetData(data);
+                }
+            });
+        });*@
+    });
+</script>

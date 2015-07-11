@@ -30,14 +30,22 @@ namespace DAL
 
         public void Remove(Models.Manager item)
         {
-            var e = this.ToEntity(item);
-            context.ManagerSet.Remove(e);
+            
+            var itm = context.ManagerSet.FirstOrDefault(x => x.Id == item.Id);
+            if(itm !=null)
+            {
+                context.ManagerSet.Remove(itm);
+            }
+            
         }
 
         public void Update(Models.Manager item)
         {
-            var e = this.ToEntity(item);
-            context.Entry(e).State = EntityState.Modified;
+            var itm = context.ManagerSet.FirstOrDefault(x => x.Id == item.Id);
+            if (itm != null)
+            {
+                context.Entry(itm).State = EntityState.Modified;
+            }
         }
 
         public IEnumerable<Models.Manager> Items
@@ -55,7 +63,7 @@ namespace DAL
         {
             this.context.SaveChanges();
         }
-
+        //
         public int Count
         {
             get { return this.context.ManagerSet.Count(); }

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SalesAnalysis.Models.SalesViewModel>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<p>ManagerId:  @ViewBag.ManagerId</p>
+<br />
+<p>ClientId: @ViewBag.ClientId</p>
+<br />
+<p>DateFom: @ViewBag.DateFom</p>
+<br />
+<p>DateTo: @ViewBag.DateTo</p>
+<br />
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manager)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Goodds)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Goodds.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+        </tr>
+    }
+
+</table>*@
+

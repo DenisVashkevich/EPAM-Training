@@ -12,7 +12,7 @@ using SalesAnalysis.Models;
 
 namespace SalesAnalysis.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -136,7 +136,7 @@ namespace SalesAnalysis.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+//        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -145,7 +145,7 @@ namespace SalesAnalysis.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+//        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
