@@ -1,18 +1,29 @@
 ﻿@using SalesAnalysis.Models
+@using PagedList;
+@using PagedList.Mvc;
+
+@Styles.Render("~/Content/PagedList.css")
+ 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sales statistics";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Sales statistics</h2>
 
 
 <fieldset>
-    <legend>Sales filtered</legend>
+    <legend></legend>
     <table class="table">
         <tr>
             <th>
                 <text>Manager</text>
+            </th>
+            <th>
+                <text>Client</text>
+            </th>
+            <th>
+                <text>Product</text>
             </th>
             <th>
                 <text>Date From</text>
@@ -28,6 +39,12 @@
                 @Html.DropDownList("ManagerId", (SelectList)ViewBag.ManagersList, "All managers")
             </td>
             <td>
+                @Html.DropDownList("ClientId", (SelectList)ViewBag.ClientsList, "All clients")
+            </td>
+            <td>
+                @Html.DropDownList("ProductId", (SelectList)ViewBag.GoodsList, "All goods")
+            </td>
+            <td>
                 <input type="text" id="datefrom" class="datepicker">
             </td>
             <td>
@@ -41,16 +58,21 @@
 </fieldset>
 
 
-@*<div id="salesfiltered">@{Html.RenderPartial("SalesFiltered");} </div>*@
-<div id="salesfiltered">@{Html.RenderAction("SalesFiltered", "Sales"); }</div>
+<div id="salesfiltered">
+    @{Html.RenderAction("SalesFiltered", "Sales"); }
+</div>
+
+
+
 
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
         $("#datefrom").datepicker({
-            dateFormat: "dd/mm/yy",
+            //dateFormat: "dd/mm/yy",
             showButtonPanel: true,
             defaultDate: "-1m",
             changeMonth: true,
@@ -60,7 +82,7 @@
             }
         });
         $("#dateto").datepicker({
-            dateFormat: "dd/mm/yy",
+            //dateFormat: "dd/mm/yy",
             showButtonPanel: true,
             defaultDate: new Date(),
             changeMonth: true,
@@ -77,79 +99,44 @@
     $(document).ready(function ()
     {
         $("#ManagerId").change(function () {
-            //alert($("#ManagerId option:selected").val());
-            $.ajax({
-                type: 'GET',
-                url: "@Url.Content("/Sales/SalesFiltered/")",
-                dataType: 'html',
-                data: { managerId: $(this).val(), dateFrom: $("#datefrom").val(), dateTo: $("#dateto").val() },
-                success: function (result) {
-                    $('#salesfiltered').html(result)},
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
-                }
-            });
+            setfilter();
         });
+
+        $("#ClientId").change(function () {
+            setfilter();
+        });
+
+        $("#ProductId").change(function () {
+            setfilter();
+        });
+
         $("#datefrom").change(function () {
-            //alert($("#ManagerId option:selected").val());
+            setfilter();
+        });
+
+        $("#dateto").change(function () {
+            setfilter();
+        });
+
+        function setfilter() {
             $.ajax({
                 type: 'GET',
                 url: "@Url.Content("/Sales/SalesFiltered/")",
                 dataType: 'html',
                 data: {
                     managerId: $("#ManagerId option:selected").val(),
-                    dateFrom: $("#datefrom").datepicker({ dateFormat: 'dd/mm/yy' }).val(),
-                    dateTo: $("#dateto").datepicker({ dateFormat: 'dd/mm/yy' }).val()
-                },
-                success: function (result) {
-                    $('#salesfiltered').html(result)
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
-                }
-            });
-        });
-        $("#dateto").change(function () {
-            //alert($("#ManagerId option:selected").val());
-            $.ajax({
-                type: 'GET',
-                url: "@Url.Content("/Sales/SalesFiltered/")",
-                dataType: 'html',
-                data: { managerId: $("#ManagerId option:selected").val(), dateFrom: $("#datefrom").val(), dateTo: $("#dateto").val() },
-                success: function (result) {
-                    $('#salesfiltered').html(result)
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(thrownError);
-                }
-            });
-        });
-
-    });
-</script>
-            @*$.ajax({
-                type: 'GET',
-                url: "@Url.Content("/Sales/SalesFiltered/")",
-                data: {
-                id: $(this).val(),
-                dateFrom: $("#datefrom").val(),
-                dateTo: $("#dateto").val()
-                },
-                dataType: "json",
-                success: function (result) {
-                $('#salesfiltered').html(result)},
-                error: function (ob, errStr) {
-                alert("An error occured.");
-                }
-                });*@
-            @*var data = JSON.stringify({
-                 'StrContactDetails': Details,
-                 'IsPrimary':true
-               });*@
-                @*data: {
-                    id: + $(this).val(),
+                    clientId: $("#ClientId option:selected").val(),
+                    productId: $("#ProductId option:selected").val(),
                     dateFrom: $("#datefrom").val(),
                     dateTo: $("#dateto").val()
-                },*@
-@*{ "id": $(this).val(), "dateFrom": $("#datefrom").val(), "dateTo": $("#dateto").val() }*@
-@*"{'id' : '" + $(this).val() + "', 'dateFrom' : '" + $("#datefrom").val() + "', 'dateTo' : '" + $("#dateto").val() + "' }",*@
+                },
+                success: function (result) {
+                    $('#salesfiltered').html(result)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                }
+            });
+        }
+    });
+</script>

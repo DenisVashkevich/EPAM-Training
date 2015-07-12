@@ -3,16 +3,11 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<fieldset>
-    <p>ManagerId:  @ViewBag.ManagerId</p>
-    <br />
-    <p>RecordsCount: @ViewBag.RecordsCount</p>
-    <br />
-    <p>DateFom: @ViewBag.DateFrom</p>
-    <br />
-    <p>DateTo: @ViewBag.DateTo</p>
-    <br />
-</fieldset>
+@Scripts.Render("~/bundles/jquery")
+
+@using PagedList;
+@using PagedList.Mvc;
+ 
 <table class="table">
     <tr>
         <th>
@@ -57,3 +52,17 @@
 
 </table>
 
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("salesfiltered", 
+    new {
+        managerId = @ViewBag.CurrentManagerId, 
+        clientId = ViewBag.CurrentClientId, 
+        productId = ViewBag.CurrentProductId,
+        dateFrom = ViewBag.CurrentDateFrom,
+        dateTo = ViewBag.CurrentDateTo,
+        page
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "salesfiltered" }))
