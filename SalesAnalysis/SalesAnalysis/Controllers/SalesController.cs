@@ -22,20 +22,22 @@ namespace SalesAnalysis.Controllers
         }
 
 
-        public PartialViewResult SalesFiltered(string Id)
+        public PartialViewResult SalesFiltered(int? Id)
         {
             ViewBag.ManagerId = Id;
-            //var salesData = salesContext.Items.Where(x=>x.Id == ViewBag.ManagerId).Select(x => new SalesViewModel
-            //{
-            //    Id = x.Id,
-            //    Date = x.Date,
-            //    Manager = new ManagerViewModel(x.Manager),
-            //    Client = x.Client,
-            //    Goodds = x.Goodds,
-            //    Cost = x.Cost
-            //});
+            
+            var salesData = salesContext.Items.Where(x => (Id == null ? x.Manager.Id>0 : x.Manager.Id == Id)).Select(x => new SalesViewModel
+            {
+                Id = x.Id,
+                Date = x.Date,
+                Manager = new ManagerViewModel(x.Manager),
+                Client = x.Client,
+                Goodds = x.Goodds,
+                Cost = x.Cost
+            });
+            ViewBag.RecordsCount = salesData.Count();
 
-            return PartialView();
+            return PartialView(salesData);
         }
     }
 }

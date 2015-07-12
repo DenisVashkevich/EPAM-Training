@@ -3,16 +3,17 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-
-<p>ManagerId:  @ViewBag.ManagerId</p>
-<br />
-<p>ClientId: @ViewBag.ClientId</p>
-<br />
-<p>DateFom: @ViewBag.DateFom</p>
-<br />
-<p>DateTo: @ViewBag.DateTo</p>
-<br />
-@*<table class="table">
+<fieldset>
+    <p>ManagerId:  @ViewBag.ManagerId</p>
+    <br />
+    <p>RecordsCount: @ViewBag.RecordsCount</p>
+    <br />
+    <p>DateFom: @ViewBag.DateFom</p>
+    <br />
+    <p>DateTo: @ViewBag.DateTo</p>
+    <br />
+</fieldset>
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Date)
@@ -54,5 +55,5 @@
         </tr>
     }
 
-</table>*@
+</table>
 
