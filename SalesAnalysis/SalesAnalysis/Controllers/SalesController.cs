@@ -15,29 +15,41 @@ namespace SalesAnalysis.Controllers
         public ActionResult Index()
         {
             ViewBag.ManagersList = new SelectList(managersContext.Items.Select(x => new ManagerViewModel(x)).ToList(), dataValueField: "Id", dataTextField: "FullName");
-            //ViewBag.ManagersList = managersList;
-
             return View();
-
         }
 
 
-        public PartialViewResult SalesFiltered(int? Id)
+        //public PartialViewResult SalesFiltered(int? managerId, DateTime? dateFrom, DateTime? dateTo)
+        public PartialViewResult SalesFiltered(int? managerId, DateTime? dateFrom, DateTime? dateTo)
         {
-            ViewBag.ManagerId = Id;
-            
-            var salesData = salesContext.Items.Where(x => (Id == null ? x.Manager.Id>0 : x.Manager.Id == Id)).Select(x => new SalesViewModel
-            {
-                Id = x.Id,
-                Date = x.Date,
-                Manager = new ManagerViewModel(x.Manager),
-                Client = x.Client,
-                Goodds = x.Goodds,
-                Cost = x.Cost
-            });
+            //Random rand = new Random();
+            //managerId = rand.Next(1, 99);
+
+            if (managerId == null) managerId = 7;
+            ViewBag.ManagerId = managerId;
+            DateTime dtFrom =  (dateFrom ?? new DateTime(2000,1,1));
+            DateTime dtTo =  (dateTo ?? DateTime.Today);
+
+            ViewBag.DateFrom = dtFrom;
+            ViewBag.DateTo = dtTo;
+
+            var salesData = salesContext.Items.Where(
+                x => (managerId == null ? x.Manager.Id>0 : x.Manager.Id == managerId)).Where(
+                x=>(x.Date>=dtFrom && x.Date<=dtTo)
+                ).Select(x => new SalesViewModel
+                    {
+                        Id = x.Id,
+                        Date = x.Date,
+                        Manager = new ManagerViewModel(x.Manager),
+                        Client = x.Client,
+                        Goodds = x.Goodds,
+                        Cost = x.Cost
+                    });
+
             ViewBag.RecordsCount = salesData.Count();
 
             return PartialView(salesData);
+                
         }
     }
 }

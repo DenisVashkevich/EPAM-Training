@@ -48,10 +48,11 @@
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
-    $(function () {
+    $(document).ready(function () {
         $("#datefrom").datepicker({
             dateFormat: "dd/mm/yy",
-            defaultDate: "+1w",
+            showButtonPanel: true,
+            defaultDate: "-1m",
             changeMonth: true,
             numberOfMonths: 1,
             onClose: function (selectedDate) {
@@ -60,7 +61,8 @@
         });
         $("#dateto").datepicker({
             dateFormat: "dd/mm/yy",
-            defaultDate: "+1w",
+            showButtonPanel: true,
+            defaultDate: new Date(),
             changeMonth: true,
             numberOfMonths: 1,
             onClose: function (selectedDate) {
@@ -70,6 +72,7 @@
     });
 </script>
 
+
 <script type="text/javascript">
     $(document).ready(function ()
     {
@@ -78,14 +81,75 @@
             $.ajax({
                 type: 'GET',
                 url: "@Url.Content("/Sales/SalesFiltered/")",
-                data: {
-                    Id: $(this).val()                 
-                },
                 dataType: 'html',
+                data: { managerId: $(this).val(), dateFrom: $("#datefrom").val(), dateTo: $("#dateto").val() },
                 success: function (result) {
-                    $('#salesfiltered').html(result);
+                    $('#salesfiltered').html(result)},
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
                 }
             });
         });
+        $("#datefrom").change(function () {
+            //alert($("#ManagerId option:selected").val());
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Content("/Sales/SalesFiltered/")",
+                dataType: 'html',
+                data: {
+                    managerId: $("#ManagerId option:selected").val(),
+                    dateFrom: $("#datefrom").datepicker({ dateFormat: 'dd/mm/yy' }).val(),
+                    dateTo: $("#dateto").datepicker({ dateFormat: 'dd/mm/yy' }).val()
+                },
+                success: function (result) {
+                    $('#salesfiltered').html(result)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                }
+            });
+        });
+        $("#dateto").change(function () {
+            //alert($("#ManagerId option:selected").val());
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Content("/Sales/SalesFiltered/")",
+                dataType: 'html',
+                data: { managerId: $("#ManagerId option:selected").val(), dateFrom: $("#datefrom").val(), dateTo: $("#dateto").val() },
+                success: function (result) {
+                    $('#salesfiltered').html(result)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                }
+            });
+        });
+
     });
 </script>
+            @*$.ajax({
+                type: 'GET',
+                url: "@Url.Content("/Sales/SalesFiltered/")",
+                data: {
+                id: $(this).val(),
+                dateFrom: $("#datefrom").val(),
+                dateTo: $("#dateto").val()
+                },
+                dataType: "json",
+                success: function (result) {
+                $('#salesfiltered').html(result)},
+                error: function (ob, errStr) {
+                alert("An error occured.");
+                }
+                });*@
+            @*var data = JSON.stringify({
+                 'StrContactDetails': Details,
+                 'IsPrimary':true
+               });*@
+                @*data: {
+                    id: + $(this).val(),
+                    dateFrom: $("#datefrom").val(),
+                    dateTo: $("#dateto").val()
+                },*@
+@*{ "id": $(this).val(), "dateFrom": $("#datefrom").val(), "dateTo": $("#dateto").val() }*@
+@*"{'id' : '" + $(this).val() + "', 'dateFrom' : '" + $("#datefrom").val() + "', 'dateTo' : '" + $("#dateto").val() + "' }",*@
