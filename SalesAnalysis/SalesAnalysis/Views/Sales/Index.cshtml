@@ -1,6 +1,7 @@
-﻿@using SalesAnalysis.Models
+﻿@*@model IEnumerable<SalesViewModel>
+@using SalesAnalysis.Models
 @using PagedList;
-@using PagedList.Mvc;
+@using PagedList.Mvc;*@
 
 @Styles.Render("~/Content/PagedList.css")
  
@@ -58,15 +59,32 @@
 </fieldset>
 
 
+
 <div id="salesfiltered">
     @{Html.RenderAction("SalesFiltered", "Sales"); }
 </div>
 
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/ui/1.10.4/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
+@*@Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+    {
+        managerId = @ViewBag.CurrentManagerId,
+        clientId = ViewBag.CurrentClientId,
+        productId = ViewBag.CurrentProductId,
+        dateFrom = ViewBag.CurrentDateFrom,
+        dateTo = ViewBag.CurrentDateTo,
+        page
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "salesfiltered" }))*@
+@*@Html.PagedListPager((IPagedList)Model, page => Url.Action("SalesFiltered",
+    new
+    {
+        Model
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "salesfiltered" }))*@
 
-
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
     $(document).ready(function ()

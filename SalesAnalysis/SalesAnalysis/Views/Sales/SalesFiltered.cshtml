@@ -5,8 +5,8 @@
     </p>*@
 @Scripts.Render("~/bundles/jquery")
 
-@using PagedList;
-@using PagedList.Mvc;
+@*@using PagedList;
+@using PagedList.Mvc;*@
  
 <table class="table">
     <tr>
@@ -57,12 +57,4 @@
 
 
 
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("salesfiltered", 
-    new {
-        managerId = @ViewBag.CurrentManagerId, 
-        clientId = ViewBag.CurrentClientId, 
-        productId = ViewBag.CurrentProductId,
-        dateFrom = ViewBag.CurrentDateFrom,
-        dateTo = ViewBag.CurrentDateTo,
-        page
-    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "salesfiltered" }))
+

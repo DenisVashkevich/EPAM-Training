@@ -183,6 +183,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManagerViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PieChartModel.cs" />
     <Compile Include="Models\SalesFilter.cs" />
     <Compile Include="Models\SalesViewModel.cs" />
     <Compile Include="Models\SecurityDbInitializer.cs" />
@@ -300,6 +301,7 @@
     <Content Include="Views\Shared\Index.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
     <Content Include="Views\Sales\SalesFiltered.cshtml" />
+    <Content Include="Views\Sales\Charts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
