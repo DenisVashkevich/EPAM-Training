@@ -3,36 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DAL.Models;
 
 namespace SalesAnalysis.Controllers
 {
-    public class ClientsController : Controller
+    public class GoodsController : Controller
     {
-        DAL.ClientRepository clientsRep = new DAL.ClientRepository();
-        // GET: Clients
+        DAL.GoodsRepository goodsContext = new DAL.GoodsRepository();
+        // GET: Goods
         public ActionResult Index()
         {
-            return View(clientsRep.Items);
+            return View(goodsContext.Items);
         }
 
-        // GET: Clients/Edit/5
+
+        // POST: Goods/Create
+
+        // GET: Goods/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Clients/Edit/5
+        // POST: Goods/Edit/5
         [HttpPost]
-        public ActionResult Edit(DAL.Models.Client client)
+        public ActionResult Edit(DAL.Models.Goods product)
         {
             if (ModelState.IsValid)
             {
-                clientsRep.Update(client);
-                clientsRep.SaveChanges();
+                goodsContext.Update(product);
+                goodsContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(client);
+            return View(product);
         }
 
     }

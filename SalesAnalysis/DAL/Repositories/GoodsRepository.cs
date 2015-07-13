@@ -30,13 +30,20 @@ namespace DAL
 
         public void Remove(Models.Goods item)
         {
-            var e = this.ToEntity(item);
-            context.GoodsSet.Remove(e);
+            var itm = context.GoodsSet.FirstOrDefault(x => x.Id == item.Id);
+            if (itm != null)
+            {
+                context.GoodsSet.Remove(itm);
+            }
         }
 
         public void Update(Models.Goods item)
         {
-            throw new NotImplementedException();
+            var itm = context.GoodsSet.FirstOrDefault(x => x.Id == item.Id);
+            if (itm != null)
+            {
+                context.Entry(itm).State = EntityState.Modified;
+            }
         }
 
         public IEnumerable<Models.Goods> Items

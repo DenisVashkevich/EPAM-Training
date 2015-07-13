@@ -17,11 +17,6 @@ namespace SalesAnalysis.Controllers
             return View(managerRep.Items);
         }
 
-        //// GET: Managers/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
         // GET: Managers/Create
         
@@ -54,18 +49,11 @@ namespace SalesAnalysis.Controllers
         [HttpPost]
         public ActionResult Edit(DAL.Models.Manager manager)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    managerRep.Update(manager);
-                    managerRep.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch
-            {
-                return View(manager);
+                managerRep.Update(manager);
+                managerRep.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(manager);
         }
