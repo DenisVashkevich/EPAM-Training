@@ -1,0 +1,26 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Win10UniDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="using:Win10UniDemo.ViewModels"
+    x:Class="Win10UniDemo.MainPage"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <ViewModels:MovieLibViewModel x:Key="mlib"/>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer Margin="20" VerticalScrollBarVisibility="Auto">
+            <GridView x:Name="moviesGrid" Margin="10">
+                <!--<GridView.Header>
+                    <StackPanel x:Name="moviesHeader" Width="400" Margin="0,4,14,0" Orientation="Horizontal">
+                    </StackPanel>
+                </GridView.Header>-->
+            </GridView>
+        </ScrollViewer>
+
+    </Grid>
+</Page>
